@@ -29,6 +29,7 @@ class Personsagem{
     }
 
     setVida(novaVida){
+        if(novaVida < 0) novaVida = 0;
         this.vida = novaVida;
     }
 

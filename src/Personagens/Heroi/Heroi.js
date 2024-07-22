@@ -13,13 +13,11 @@ const Personsagem = require("../Personagens");
 
 
 class Heroi extends Personsagem{
-    contadorAtaque = 0;
 
-    constructor(classe, vida, poderAtaque, defesa, nivel, fadiga, dinheiro){
+    constructor(classe, vida, poderAtaque, defesa, nivel, moedas){
         super(classe, vida, poderAtaque, defesa);
         this.nivel = nivel;
-        this.fadiga = fadiga;
-        this.dinheiro = dinheiro;
+        this.moedas = moedas;
     }
 
     getNivel(){
@@ -34,16 +32,12 @@ class Heroi extends Personsagem{
         this.fadiga = novaFadiga;
     }
 
-    getDinheiro(){
-        return this.dinheiro;
+    getMoedas(){
+        return this.moedas;
     }
 
-    setDinheiro(novoDinheiro){
-        this.dinheiro = novoDinheiro;
-    }
-
-    getContadorAtaque(){
-        return this.contadorAtaque;
+    setMoedas(novasMoedas){
+        this.moedas = novasMoedas;
     }
 
     incrementarContadorAtaque(){
@@ -75,30 +69,33 @@ class Heroi extends Personsagem{
     }
 
 
-    calcularFadiga(atributo){
-        return (atributo * this.getFadiga() * this.getContadorAtaque());
-    }
 
     atacar(){
-        let danoAtaque, reducaoDano;
-        console.log("Atacando...");
-        reducaoDano = this.calcularFadiga(this.getPoderAtaque());
-        danoAtaque = this.getPoderAtaque() - reducaoDano;
+        let danoAtaque;
+        console.log(`O ${this.getNome()} está atacando...`);
+        danoAtaque = this.getPoderAtaque();
         console.log("Dano causado: " + danoAtaque);
 
         return danoAtaque;
     }
 
     sofrerDano(danoRecebido){
-        let vidaReduzida, novaVida, defesa;
-        console.log("Sofreu dano... ");
-        defesa = this.calcularFadiga(this.getDefesa());
-        vidaReduzida = danoRecebido - defesa;
-        novaVida -= vidaReduzida;
+        let vidaReduzida, novaVida;
+        vidaReduzida = danoRecebido * (1 - this.getDefesa());
+        novaVida = this.getVida() - vidaReduzida;
         this.setVida(novaVida);
-        console.log("Vida atual: "+ this.getVida());
+
+        console.log(`O ${this.getNome()} sofreu dano e teve sua vida reduzida em ${vidaReduzida} pontos.`);
+        console.log("A vida atual é: "+ this.getVida());
     }
 
+
+    receberMoedas(moedas){
+        let novasMoedas = this.getMoedas() + moedas;
+        this.setMoedas(novasMoedas);
+        console.log(`O ${this.getNome()} recebeu ${moedas} moedas de recompensa.`);
+        console.log(`A quantidade atual de moedas é: ${this.getMoedas()}`);
+    }
 
 };
 

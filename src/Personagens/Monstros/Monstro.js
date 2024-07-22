@@ -13,10 +13,9 @@ const Personsagem = require("../Personagens");
 
 class Monstro extends Personsagem{
 
-    constructor(nome, vida, poderAtaque, defesa, andar, ataqueEspecial, valor){
+    constructor(nome, vida, poderAtaque, defesa, andar, valor){
         super(nome, vida, poderAtaque, defesa);
         this.andar = andar;
-        this.ataqueEspecial = ataqueEspecial;
         this.valor = valor;
     }
 
@@ -24,28 +23,42 @@ class Monstro extends Personsagem{
         return this.andar;
     }
 
-    getAtaqueEspecial(){
-        return this.AtaqueEspecial;
-    }
-
     getValor(){
         return this.valor;
     }
 
     atacar(){
+        console.log(" ------------- ");
         console.log(`O ${this.getNome()} está atacando...`);
+        console.log(" ------------- ");
         return this.getPoderAtaque();
     }
 
     sofrerDano(danoRecebido){
+        console.log(" --------------- ");
         let vidaReduzida, novaVida, defesa;
         console.log("Sofreu dano... ");
         defesa = this.getDefesa();
         vidaReduzida = danoRecebido - defesa;
-        novaVida -= vidaReduzida;
+        novaVida = this.getVida() - vidaReduzida;
         this.setVida(novaVida);
         console.log(`A vida atual do ${this.getNome()} é: ${this.getVida()}`);
+        console.log(" --------------- ");
     }
+
+    //Metodo abstrado para os monstros
+    ataqueEspecial(){}
+
+    mostrarDados(){
+        console.log(" -------------------------- ");
+        console.log(`Nome: ${this.getNome()}`);
+        console.log(`Vida: ${this.getVida()}`);
+        console.log(`Defesa: ${this.getDefesa()}`);
+        console.log(`Poder de Ataque: ${this.getPoderAtaque()}`);
+        console.log(`Valor: ${this.getValor()}`);
+        console.log(" ------------------------- ");
+    }
+
 };
 
 module.exports = Monstro;
