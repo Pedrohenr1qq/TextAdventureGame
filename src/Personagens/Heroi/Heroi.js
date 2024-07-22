@@ -39,42 +39,51 @@ class Heroi extends Personsagem{
     setMoedas(novasMoedas){
         this.moedas = novasMoedas;
     }
-
-    incrementarContadorAtaque(){
-        this.contadorAtaque +=1;
+    
+    mostrarDados(){
+        console.log(`--------- ${this.getNome()} --------`);
+        console.log(`Vida: ${this.getVida()}`);
+        console.log(`Defesa: ${this.getDefesa()}`);
+        console.log(`Poder de Ataque: ${this.getPoderAtaque()}`);
+        console.log(`Moedas: ${this.getMoedas()}`);
+        console.log(" ----------------------------------- ");
     }
 
-    zerarContadorAtaque(){
-        this.contadorAtaque = 0;
-    }
 
 
     aumentarNivel(){
-        let novaVida, novoPoderAtaque, novaDefesa, novaFadiga, novoDinheiro;
+        let novaVida, novoPoderAtaque, novaDefesa, novasMoedas;
         let taxaUpgrade = 0.3;
+    
+        console.log(" ---------------------------------------")
+        console.log("Subindo os nivels do jogador...");
 
-        novaVida = this.getVida() ( 1 + taxaUpgrade * this.getNivel());
-        novoPoderAtaque = this.getPoderAtaque() ( 1 + taxaUpgrade * this.getNivel());
-        novaDefesa = this.getDefesa() ( 1 + taxaUpgrade * this.getNivel());
-        novaFadiga = 0;
-        novoDinheiro = this.getDinheiro() + 100;
+        novaVida = this.getVida() *  ( 1 + taxaUpgrade * this.getNivel());
+        novoPoderAtaque = this.getPoderAtaque() * ( 1 + taxaUpgrade * this.getNivel());
+        novaDefesa = this.getDefesa() * ( 1 + taxaUpgrade/10 * this.getNivel());
+        novasMoedas = this.getMoedas() + 100;
 
         this.setVida(novaVida);
         this.setPoderAtaque(novoPoderAtaque);
         this.setDefesa(novaDefesa);
-        this.setFadiga(novaFadiga);
-        this.setDinheiro(novoDinheiro);
+        this.setMoedas(novasMoedas);
 
         this.nivel +=1;
+
+        console.log("Status atualizado. Novos valores: ");
+        this.mostrarDados();
+
     }
 
 
 
     atacar(){
         let danoAtaque;
+        console.log(" ----------------------------------------");
         console.log(`O ${this.getNome()} está atacando...`);
         danoAtaque = this.getPoderAtaque();
         console.log("Dano causado: " + danoAtaque);
+        console.log("");
 
         return danoAtaque;
     }
@@ -87,6 +96,7 @@ class Heroi extends Personsagem{
 
         console.log(`O ${this.getNome()} sofreu dano e teve sua vida reduzida em ${vidaReduzida} pontos.`);
         console.log("A vida atual é: "+ this.getVida());
+        console.log(" ---------------------------------------- ");
     }
 
 
@@ -95,6 +105,7 @@ class Heroi extends Personsagem{
         this.setMoedas(novasMoedas);
         console.log(`O ${this.getNome()} recebeu ${moedas} moedas de recompensa.`);
         console.log(`A quantidade atual de moedas é: ${this.getMoedas()}`);
+        console.log("");
     }
 
 };

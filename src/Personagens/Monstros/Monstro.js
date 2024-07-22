@@ -30,14 +30,13 @@ class Monstro extends Personsagem{
     atacar(){
         console.log(" ------------- ");
         console.log(`O ${this.getNome()} está atacando...`);
-        console.log(" ------------- ");
+        console.log("");
         return this.getPoderAtaque();
     }
 
     sofrerDano(danoRecebido){
-        console.log(" --------------- ");
         let vidaReduzida, novaVida, defesa;
-        console.log("Sofreu dano... ");
+        console.log(`O ${this.getNome()} sofreu dano...`);
         defesa = this.getDefesa();
         vidaReduzida = danoRecebido - defesa;
         novaVida = this.getVida() - vidaReduzida;
@@ -50,13 +49,30 @@ class Monstro extends Personsagem{
     ataqueEspecial(){}
 
     mostrarDados(){
-        console.log(" -------------------------- ");
-        console.log(`Nome: ${this.getNome()}`);
+        console.log(`--------- ${this.getNome()} --------`);
         console.log(`Vida: ${this.getVida()}`);
         console.log(`Defesa: ${this.getDefesa()}`);
         console.log(`Poder de Ataque: ${this.getPoderAtaque()}`);
         console.log(`Valor: ${this.getValor()}`);
-        console.log(" ------------------------- ");
+        console.log(" ----------------------------------- ");
+    }
+
+
+    furia(){
+        let novaVida, novoPoderAtaque, novaDefesa;
+        let taxaUpgrade = 0.30;
+        console.log(`A dungeon fez com que os monstros presentes nela entrassem em fúria. Todos os seus status aumentarão em ${taxaUpgrade*100}%. `);
+        
+        novaVida = this.getVida() *  ( 1 + taxaUpgrade );
+        novoPoderAtaque = this.getPoderAtaque() * ( 1 + taxaUpgrade);
+        novaDefesa = this.getDefesa() * ( 1 + taxaUpgrade);
+
+        this.setVida(novaVida);
+        this.setPoderAtaque(novoPoderAtaque);
+        this.setDefesa(novaDefesa);
+
+        console.log("Novos status: ");
+        this.mostrarDados();
     }
 
 };
