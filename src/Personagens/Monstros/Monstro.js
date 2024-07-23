@@ -13,10 +13,11 @@ const Personsagem = require("../Personagens");
 
 class Monstro extends Personsagem{
 
-    constructor(nome, vida, poderAtaque, defesa, andar, valor){
+    constructor(nome, vida, poderAtaque, defesa, andar, valor, index){
         super(nome, vida, poderAtaque, defesa);
         this.andar = andar;
         this.valor = valor;
+        this.index = index;
     }
 
     getAndar(){

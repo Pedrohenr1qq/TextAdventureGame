@@ -20,16 +20,30 @@ class FaseGeral{
 
     }
 
-    encontroComMonstro(monstro, jogador){
+    async encontroComMonstro(monstro, jogador){
         let userInput;
         let vaiLutar = true;
-
+        console.log(" ---------------------------------------------------------------------------------------------------------- ");
         console.log(`Você se deparou com um monstro. Suas características são: `);
         monstro.mostrarDados();
 
-        userInput = prompt("Deseja lutar (y para sim e n para não) ? ");
+        if(monstro.index == 0){
+            userInput = prompt("Deseja lutar (y para sim e n para não) ? ");
+        }
+        else {
+            console.log("Você se deparou com o ultimo monstro da dungeon. Ele é o monstro mais forte do local. ");
+            console.log("Se você for lutar contra ele, corre o risco de morrer. Tem certeza que deseja lutar contra ele? ");
+            userInput = prompt("Deseja lutar (y para sim e n para não) ? ");
+            console.log("");
 
-        if(this.desistiu == 0){
+            // Só pode pular o primeiro monstro
+            if(userInput != 'y' ){
+                console.log("Essa não. O monstro sentiu o seu cheiro e agora está indo atrás de você. Você terá que lutar agora. Ponha suas armas a postos");
+                userInput = 'y';
+            }
+        }
+
+        if(this.desistiu == 0 ){
             if(userInput == 'y'){
                 vaiLutar = true;
             }else{
@@ -45,18 +59,19 @@ class FaseGeral{
         }
     
         if(vaiLutar){
-            this.lutar(jogador, monstro);
+            await this.lutar(jogador, monstro);
         }
     }
 
       
-    lutar(jogador, monstro){
+    async lutar(jogador, monstro){
         let danoJogador, danoMonstro;
         console.log(" ------------------------------ ");
         console.log(`O jogador da classe ${jogador.getNome()} esta lutando com o monstro ${monstro.getNome()}`);
         
         while((jogador.getVida() > 0) && (monstro.getVida() > 0)){
-            console.log("Lutando ...");
+            console.log("Lutando... \n");
+            await this.sleep(3);
 
             danoJogador = jogador.atacar();
             monstro.sofrerDano(danoJogador);
@@ -98,6 +113,17 @@ class FaseGeral{
             console.log(`Vamos prosseguir para o proximo andar...`);
         }
     }
+    // Função auxiliar
+    sleep(seconds){
+        return new Promise(resolve =>  {
+            setTimeout(() => {
+                resolve(seconds);
+            }, seconds * 1000);
+        });
+    }
+
+
+
 };
 
 module.exports = FaseGeral;

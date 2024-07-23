@@ -22,13 +22,19 @@ class Fase_1 extends FaseGeral{
         console.log("Este andar é repleto de monstros selvagens como goblins e orcs. Você está preparado para lidar com eles? ");
     }
 
-    iniciarFase(jogador){
+    async iniciarFase(jogador){
+        this.apresentarFase();
+
+
         console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
-        this.encontroComMonstro(goblin, jogador);
+        await this.encontroComMonstro(goblin, jogador);
         if(!this.getGameOver()) {
             console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
-            this.encontroComMonstro(orc, jogador);
+            await this.encontroComMonstro(orc, jogador);
+
         }
+        this.fimDaFase(jogador);
+
     }
 
 

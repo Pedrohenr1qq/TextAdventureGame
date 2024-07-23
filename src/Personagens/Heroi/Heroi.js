@@ -14,10 +14,15 @@ const Personsagem = require("../Personagens");
 
 class Heroi extends Personsagem{
 
-    constructor(classe, vida, poderAtaque, defesa, nivel, moedas){
+    constructor(nomeJogador, classe, vida, poderAtaque, defesa, nivel, moedas){
         super(classe, vida, poderAtaque, defesa);
+        this.nomeJogador = nomeJogador;
         this.nivel = nivel;
         this.moedas = moedas;
+    }
+
+    getNomeJogador(){
+        return this.nomeJogador;
     }
 
     getNivel(){

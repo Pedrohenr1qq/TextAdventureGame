@@ -1,9 +1,10 @@
 const Heroi = require("./Heroi");
 
 class Mago extends Heroi{
-    constructor(){
+    constructor(nomeJogador){
 
-        super("Mago",100, 100, 0.3, 1, 0);
+        super(nomeJogador, "Mago",50
+            , 100, 0.3, 1, 0);
     }
 
 };
