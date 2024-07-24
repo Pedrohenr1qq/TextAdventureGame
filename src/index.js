@@ -3,38 +3,60 @@ const prompt = require('prompt-sync')();
 
 // ======================== INSTÂNCIAS DE CLASSES ========================
 const Fase_1 = require('./Fases/fase_1');
+const Fase_2 = require('./Fases/fase_2');
+
 const Arqueiro = require('./Personagens/Heroi/Arqueiro');
 const Guerreiro = require('./Personagens/Heroi/Guerreiro');
 const Ladino = require('./Personagens/Heroi/Ladino');
 const Mago = require('./Personagens/Heroi/Mago');
 
+const LojaItens = require('./LojaItens/LojaItens');
+
 // ======================== OBJETOS GLOBAIS =============================
 const fase_1 = new Fase_1();
-//const guerreiro = new Guerreiro();
-//const mago = new Mago();
+const fase_2 = new Fase_2();
+
+
+const lojaItens = new LojaItens();
 
 // ================================== INICIO DO GAME =============================
-//  -------- Apresentação da fase -------------
-console.log("Seja bem vindo caro jogador à Dungeon das Bestas. Vamos comecar? ");
-var nomeJogador = prompt("Digite seu nome: ");
-var jogador = escolhaDeClasse(nomeJogador);
+async function main(){
+
+    //  -------- Apresentação da Dungeon -------------
+    console.log("Seja bem vindo caro jogador à Dungeon das Bestas. Vamos comecar? ");
+    var nomeJogador = prompt("Digite seu nome: ");
+    var jogador = escolhaDeClasse(nomeJogador);
 
 
-// --------------- FASES -----------------
-// FASE 1
-console.log("");
-fase_1.iniciarFase(jogador);
-console.log();
+    // --------------- FASES -----------------
+    // FASE 1
+    console.log("");
+    await fase_1.iniciarFase(jogador);
 
-// FASE 2
+    //Apresentar Inventário:
+    console.log("");
+    console.log("======================================================");
+    console.log("Antes de prosseguirmos, há algo que eu gostaria de te contar...");
+    console.log("Agora que você completou o primeiro nível, és digno de ter acesso à loja da dungeon");
+    lojaItens.apresentarLoja();
+    console.log("======================================================");
 
-// FASE 3
+    // FASE 2
+    console.log("");
+    await fase_2.iniciarFase(jogador);
 
-// FASE 4
 
-// FASE 5 -- BONUS
+    // FASE 3
 
-// FASE 6 -- FINAL
+    // FASE 4
+
+    // FASE 5 -- BONUS
+
+    // FASE 6 -- FINAL
+
+}
+
+main() // Chamando a função principal do jogo para executar o código
 
 // =================================== FIM DO JOGO ===============================
 

@@ -23,7 +23,7 @@ class FaseGeral{
     async encontroComMonstro(monstro, jogador){
         let userInput;
         let vaiLutar = true;
-        console.log(" ---------------------------------------------------------------------------------------------------------- ");
+        console.log("\n ---------------------------- ENCONTRO COM MONSTRO ----------------------------------- ");
         console.log(`Você se deparou com um monstro. Suas características são: `);
         monstro.mostrarDados();
 
@@ -57,46 +57,12 @@ class FaseGeral{
             vaiLutar = true;
             monstro.furia();
         }
-    
-        if(vaiLutar){
-            await this.lutar(jogador, monstro);
-        }
+
+        return vaiLutar;
     }
 
-      
-    async lutar(jogador, monstro){
-        let danoJogador, danoMonstro;
-        console.log(" ------------------------------ ");
-        console.log(`O jogador da classe ${jogador.getNome()} esta lutando com o monstro ${monstro.getNome()}`);
-        
-        while((jogador.getVida() > 0) && (monstro.getVida() > 0)){
-            console.log("Lutando... \n");
-            await this.sleep(3);
-
-            danoJogador = jogador.atacar();
-            monstro.sofrerDano(danoJogador);
-
-            if(monstro.getVida() <= 0){
-                console.log("Monstro Derrotado");
-                break;
-            }
-    
-            danoMonstro = monstro.atacar();
-            jogador.sofrerDano(danoMonstro);
-
-        }
-
-        console.log("Luta encerrada...\n");
-
-        if(jogador.getVida() > 0){
-            this.receberRecompensas(jogador, monstro);
-        }else{
-            console.log(`O jogador de classe ${jogador.getNome()} morreu ao lutar contra o ${monstro.getNome()} no ${this.getNome()}!`);
-            this.gameOver = true;
-        }
-
-    }
     receberRecompensas(jogador, monstro){
+        console.log("\n-------------------------- RECEBENDO RECOMPENSAS ----------------------------")
         console.log(`Parabéns caro jogador. Você ganhou contra o ${monstro.getNome()} no ${this.getNome()}!`);
         console.log(`Você receberá ${monstro.getValor()} por ter derrotado o monstro. \n`);
         jogador.receberMoedas(monstro.getValor());

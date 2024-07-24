@@ -13,12 +13,13 @@ const Personsagem = require("../Personagens");
 
 
 class Heroi extends Personsagem{
-
+    vidaInicial = 0;
     constructor(nomeJogador, classe, vida, poderAtaque, defesa, nivel, moedas){
         super(classe, vida, poderAtaque, defesa);
         this.nomeJogador = nomeJogador;
         this.nivel = nivel;
         this.moedas = moedas;
+        this.vidaInicial = vida;
     }
 
     getNomeJogador(){
@@ -45,6 +46,10 @@ class Heroi extends Personsagem{
         this.moedas = novasMoedas;
     }
     
+    resetarVida(){
+        this.setVida(this.vidaInicial);
+    }
+
     mostrarDados(){
         console.log(`--------- ${this.getNome()} --------`);
         console.log(`Vida: ${this.getVida()}`);
@@ -60,8 +65,11 @@ class Heroi extends Personsagem{
         let novaVida, novoPoderAtaque, novaDefesa, novasMoedas;
         let taxaUpgrade = 0.3;
     
-        console.log(" ---------------------------------------")
+        console.log("\n ------------------ AUMENTO DE NÍVEL---------------------")
         console.log("Subindo os nivels do jogador...");
+
+        console.log("Restaurando vida para valor inicial...");
+        this.resetarVida();
 
         novaVida = this.getVida() *  ( 1 + taxaUpgrade * this.getNivel());
         novoPoderAtaque = this.getPoderAtaque() * ( 1 + taxaUpgrade * this.getNivel());
@@ -78,6 +86,7 @@ class Heroi extends Personsagem{
         console.log("Status atualizado. Novos valores: ");
         this.mostrarDados();
 
+        this.vidaInicial = this.getVida(); // A nova "vida inicial" do jogador passa a ser a vida do ultimo estágio
     }
 
 
