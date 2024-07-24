@@ -13,11 +13,12 @@ const Personsagem = require("../Personagens");
 
 class Monstro extends Personsagem{
 
-    constructor(nome, vida, poderAtaque, defesa, andar, valor, index){
+    constructor(nome, vida, poderAtaque, defesa, andar, valor, index, nomeAtaqueEspecial){
         super(nome, vida, poderAtaque, defesa);
         this.andar = andar;
         this.valor = valor;
         this.index = index;
+        this.nomeAtaqueEspecial = nomeAtaqueEspecial;
     }
 
     getAndar(){
@@ -26,6 +27,10 @@ class Monstro extends Personsagem{
 
     getValor(){
         return this.valor;
+    }
+
+    getNomeAtaqueEspecial(){
+        return this.nomeAtaqueEspecial;
     }
 
     atacar(){
@@ -37,10 +42,15 @@ class Monstro extends Personsagem{
 
     sofrerDano(danoRecebido){
         let vidaReduzida, novaVida, defesa;
-        console.log(`O ${this.getNome()} sofreu dano...`);
+
         defesa = this.getDefesa();
         vidaReduzida = danoRecebido - defesa;
         novaVida = this.getVida() - vidaReduzida;
+        if(novaVida < 0) novaVida = 0;
+
+        console.log(`O ${this.getNome()} sofreu dano e teve sua vida reduzida em ${vidaReduzida} pontos.`);
+        console.log(`Vida do ${this.getNome()}: ${this.getVida()} >>> ${novaVida}`);
+
         this.setVida(novaVida);
         console.log(`A vida atual do ${this.getNome()} é: ${this.getVida()}`);
         console.log(" --------------- ");

@@ -106,13 +106,16 @@ class Heroi extends Personsagem{
         let vidaReduzida, novaVida;
         vidaReduzida = danoRecebido * (1 - this.getDefesa());
         novaVida = this.getVida() - vidaReduzida;
-        this.setVida(novaVida);
+        if(novaVida < 0) novaVida = 0;
 
         console.log(`O ${this.getNome()} sofreu dano e teve sua vida reduzida em ${vidaReduzida} pontos.`);
-        console.log("A vida atual é: "+ this.getVida());
+        console.log(`Vida do ${this.getNome()}: ${this.getVida()} >>> ${novaVida}`);
+
+        this.setVida(novaVida);
+
+        console.log(`A vida atual do ${this.getNome()} ${this.getNomeJogador()} é: ${this.getVida()}.`);
         console.log(" ---------------------------------------- ");
     }
-
 
     receberMoedas(moedas){
         let novasMoedas = this.getMoedas() + moedas;

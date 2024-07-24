@@ -12,10 +12,13 @@ const Mago = require('./Personagens/Heroi/Mago');
 
 const LojaItens = require('./LojaItens/LojaItens');
 
+const Utilities = require("./Utilities");
+
 // ======================== OBJETOS GLOBAIS =============================
+const utilities = new Utilities();
+
 const fase_1 = new Fase_1();
 const fase_2 = new Fase_2();
-
 
 const lojaItens = new LojaItens();
 
@@ -24,8 +27,10 @@ async function main(){
 
     //  -------- Apresentação da Dungeon -------------
     console.log("Seja bem vindo caro jogador à Dungeon das Bestas. Vamos comecar? ");
-    var nomeJogador = prompt("Digite seu nome: ");
+    var nomeJogador = getNome();
+    utilities.esperarValorUsuario();
     var jogador = escolhaDeClasse(nomeJogador);
+    utilities.esperarValorUsuario();
 
 
     // --------------- FASES -----------------
@@ -33,13 +38,9 @@ async function main(){
     console.log("");
     await fase_1.iniciarFase(jogador);
 
-    //Apresentar Inventário:
-    console.log("");
-    console.log("======================================================");
-    console.log("Antes de prosseguirmos, há algo que eu gostaria de te contar...");
-    console.log("Agora que você completou o primeiro nível, és digno de ter acesso à loja da dungeon");
-    lojaItens.apresentarLoja();
-    console.log("======================================================");
+    utilities.esperarValorUsuario();
+    
+    console.log("================================================================================================================");
 
     // FASE 2
     console.log("");
@@ -61,39 +62,67 @@ main() // Chamando a função principal do jogo para executar o código
 // =================================== FIM DO JOGO ===============================
 
 // =================================== FUNÇOES ===================================
+function getNome(){
+    let valorUsuario = "", nomePadronizado = "", tamanhoNome= 0;
+    valorUsuario = utilities.validarValorUsuario("Digite seu nome (Sem acentuação): ", "string");
+
+    tamanhoNome = valorUsuario.length;
+
+    nomePadronizado = utilities.validarNome(valorUsuario, tamanhoNome);  // Realizar a padronização explicada no comentário da função
+
+    console.log("Faça seu nome ser marcado na história, caro Aventureiro!\n");
+    
+    return nomePadronizado;
+}
+
+
+
 function escolhaDeClasse(nomeJogador){
     let valorUsuario, classeEscolhida;
-    console.log("Vamos escolher sua classe. Escolha umas das classes abaixo: ");
-    console.log(" 0 - Guerreiro");
-    console.log(" 1 - Mago");
-    console.log(" 2 - Arqueiro");
-    console.log(" 3 - Ladino");
-    
 
     do{
-        valorUsuario = +prompt("Digite sua escolha: ");
-        switch (valorUsuario) {
-            case 0:
-                classeEscolhida = new Guerreiro(nomeJogador);
-                break;
-        
-            case 1:
-                classeEscolhida = new Mago(nomeJogador);
-                break;
-            
-            case 2: 
-                classeEscolhida = new Arqueiro(nomeJogador);
-                break;
-            
-            case 3:
-                classeEscolhida = new Ladino(nomeJogador);
-                break;
 
-            default:
-                console.log("Valor não reconhecido. Tente Novamente.");
-                break;
-        }
-    }while((valorUsuario != 0) && (valorUsuario != 1) && (valorUsuario!= 2) && (valorUsuario !=3) );
+        console.log("Vamos escolher sua classe. Escolha umas das classes abaixo: ");
+        console.log(" 1 - Guerreiro");
+        console.log(" 2 - Mago");
+        console.log(" 3 - Arqueiro");
+        console.log(" 4 - Ladino");
+
+        do{
+            valorUsuario = utilities.validarValorUsuario("Digite sua escolha: ", "numero");
+            switch (valorUsuario) {
+                case 1:
+                    classeEscolhida = new Guerreiro(nomeJogador);
+                    break;
+            
+                case 2:
+                    classeEscolhida = new Mago(nomeJogador);
+                    break;
+                
+                case 3: 
+                    classeEscolhida = new Arqueiro(nomeJogador);
+                    break;
+                
+                case 4:
+                    classeEscolhida = new Ladino(nomeJogador);
+                    break;
+    
+                default:
+                    console.log("Valor não reconhecido. Tente Novamente.");
+                    break;
+            }
+    
+    
+        }while((valorUsuario != 1) && (valorUsuario != 2) && (valorUsuario!= 3) && (valorUsuario !=4) );
+    
+        classeEscolhida.mostrarDados();
+    
+        valorUsuario = utilities.validarValorUsuario("Tem certeza da sua escolha (digite y para continuar e qualquer outro valor para escolher outra classe) ? ");
+    
+    }while(valorUsuario != 'y');
+
+
+    console.log(`\nClasse escolhida com sucesso: ${classeEscolhida.getNome()}! Boa sorte ${nomeJogador}.`);
 
     return classeEscolhida;
 

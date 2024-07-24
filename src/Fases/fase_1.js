@@ -1,3 +1,7 @@
+const Utilities = require("../Utilities");
+const utilities = new Utilities();
+
+
 const FaseGeral = require('./FaseGeral');
 const Goblin = require('../Personagens/Monstros/andar_1/goblin');
 const Orc = require('../Personagens/Monstros/andar_1/orc');
@@ -6,7 +10,6 @@ var goblin = new Goblin();
 var orc = new Orc();
 
 class Fase_1 extends FaseGeral{
-    nome = "Andar das bestas selvagens";
     gameOver = false;
     constructor(){
         super("Andar das Bestas Selvagens")
@@ -17,7 +20,6 @@ class Fase_1 extends FaseGeral{
     }
 
 
-
     apresentarFase(){
         console.log(` =================== ${this.getNome()} ===============================`);
         console.log(`Seja bem vindo caro jogador ao primeiro andar desta dungeon!`);
@@ -25,13 +27,15 @@ class Fase_1 extends FaseGeral{
     }
 
     async lutar(monstro, jogador){
-        let danoJogador, danoMonstro;
+        let danoJogador, danoMonstro, rodada = 1;
         console.log("\n -------------------------- LUTA COM O MONSTRO -------------------------------------\n");
         console.log(`O jogador da classe ${jogador.getNome()} esta lutando com o monstro ${monstro.getNome()}`);
         
+
         while((jogador.getVida() > 0) && (monstro.getVida() > 0)){
             console.log("Lutando... \n");
-            await this.sleep(3);
+            console.log(`\n--------------------- RODADA - ${rodada} ------------------------\n`);
+            await utilities.sleep(1);
 
             danoJogador = jogador.atacar();
             monstro.sofrerDano(danoJogador);
@@ -44,15 +48,20 @@ class Fase_1 extends FaseGeral{
             danoMonstro = monstro.atacar();
             jogador.sofrerDano(danoMonstro);
 
+            rodada++;
         }
 
         console.log("Luta encerrada...\n");
 
-        if(jogador.getVida() > 0){
-            this.receberRecompensas(jogador, monstro);
-        }else{
+        console.log(`Vida do jogador: ${jogador.getVida()}`);
+
+        if(jogador.getVida() <= 0){
             console.log(`O jogador de classe ${jogador.getNome()} morreu ao lutar contra o ${monstro.getNome()} no ${this.getNome()}!`);
             this.gameOver = true;
+
+        }else{
+            this.receberRecompensas(jogador, monstro);
+            this.gameOver = false;
         }
 
     }
@@ -60,16 +69,22 @@ class Fase_1 extends FaseGeral{
     async lutarComMonstro(monstro, jogador){
         console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
         let vaiLutar = this.encontroComMonstro(monstro, jogador);
+
         if(vaiLutar){
             await this.lutar(monstro, jogador);
         }
     }
 
-
     async iniciarFase(jogador){
         this.apresentarFase();
+        utilities.esperarValorUsuario();
+
         await this.lutarComMonstro(goblin, jogador);
+        utilities.esperarValorUsuario();
+
         await this.lutarComMonstro(orc, jogador);
+        utilities.esperarValorUsuario();
+
         this.fimDaFase(jogador);
     }
 

@@ -2,12 +2,16 @@ const Monstro = require('../Monstro');
 
 class Basilico extends Monstro{
     constructor(){
-        super("Basilico", 120, 55, 0.015, 2, 80, 1);
+        super("Basilico", 200, 55, 0.015, 2, 80, 1, "Petrificação");
     }
 
     ataqueEspecial(jogador){
-        let nome = "Pretrificação";
-        console.log(`O monstro ${this.getNome()} esta usando o ataque: ${nome}`);   
+        console.log(" --------------------------------------------------------------------------------------------------")
+        console.log(`O monstro ${this.getNome()} esta usando o ataque: ${this.getNomeAtaqueEspecial()}`);   
+        console.log("Descrição ataque especial: ");
+        console.log(`O monstro ${this.getNome()} congelará o ${jogador.getNome()} por 2 rodadas... `);
+
+        return true;
     }
 
 };
