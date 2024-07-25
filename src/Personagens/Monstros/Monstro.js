@@ -48,7 +48,7 @@ class Monstro extends Personsagem{
         novaVida = this.getVida() - vidaReduzida;
         if(novaVida < 0) novaVida = 0;
 
-        console.log(`O ${this.getNome()} sofreu dano e teve sua vida reduzida em ${vidaReduzida} pontos.`);
+        console.log(`O ${this.getNome()} sofreu dano.`);
         console.log(`Vida do ${this.getNome()}: ${this.getVida()} >>> ${novaVida}`);
 
         this.setVida(novaVida);

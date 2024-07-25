@@ -1,13 +1,15 @@
 const Utilities = require("../Utilities");
-const utilities = new Utilities();
 
 
 class FaseGeral{
+    utilities = new Utilities();
+
+
     desistiu = 0;
+    gameOver = false;
 
     constructor(nome){
         this.nome = nome;
-        this.gameOver = false;
     }
 
     getNome(){
@@ -30,18 +32,18 @@ class FaseGeral{
         monstro.mostrarDados();
 
         if(monstro.index == 0){
-            userInput = utilities.validarValorUsuario("Deseja lutar (y para sim e qualquer outro valor para não) ? ", "string");
+            userInput = this.utilities.validarValorUsuario("Deseja lutar (y para sim e qualquer outro valor para não) ? ", "string");
         }
         else {
             console.log("Você se deparou com o ultimo monstro da dungeon. Ele é o monstro mais forte do local. ");
             console.log("Se você for lutar contra ele, corre o risco de morrer. Tem certeza que deseja lutar contra ele? ");
-            userInput = utilities.validarValorUsuario("Deseja lutar (y para sim e qualquer outro valor para não) ? ", "string");
+            userInput = this.utilities.validarValorUsuario("Deseja lutar (y para sim e qualquer outro valor para não) ? ", "string");
             console.log("");
 
             // Só pode pular o primeiro monstro
             if(userInput != 'y' ){
                 console.log("Essa não. O monstro sentiu o seu cheiro e agora está indo atrás de você. Você terá que lutar agora. Ponha suas armas a postos");
-                utilities.esperarValorUsuario();
+                this.utilities.esperarValorUsuario();
                 userInput = 'y';
             }
         }
@@ -56,18 +58,28 @@ class FaseGeral{
             }
             
         }else {
-            console.log("\nComo vocẽ não lutou antes, terá que lutar agora contra este monstro para poder passar da dungeon. \n ");
+            console.log("\nComo você não lutou antes, terá que lutar agora contra este monstro para poder passar da dungeon. \n ");
             vaiLutar = true;
             monstro.furia();
-            utilities.esperarValorUsuario();
+            this.utilities.esperarValorUsuario();
         }
 
         return vaiLutar;
     }
 
     receberRecompensas(jogador, monstro){
+        let taxaUpgrade = (monstro.index == 0) ? 0.1 : 0.25;
         console.log("\n-------------------------- RECEBENDO RECOMPENSAS ----------------------------")
-        console.log(`Parabéns caro jogador. Você ganhou contra o ${monstro.getNome()} no ${this.getNome()}!`);
+        console.log(`Parabéns caro ${jogador.getNome()}. Você ganhou contra o ${monstro.getNome()} no ${this.getNome()}!`);
+
+        console.log("Você receberá um aumento de status");
+        jogador.restaurarVida();
+        jogador.alterarAtributo("Vida", (jogador.getVida() * (1 + taxaUpgrade)));
+        jogador.alterarAtributo("Defesa", (jogador.getDefesa() * (1 + taxaUpgrade/10)));
+        jogador.alterarAtributo("Poder de Ataque", (jogador.getPoderAtaque() * (1 + taxaUpgrade)));
+        console.log("");
+        jogador.mostrarDados();
+
         console.log(`Você receberá ${monstro.getValor()} moedas por ter derrotado o monstro. \n`);
         jogador.receberMoedas(monstro.getValor());
     }

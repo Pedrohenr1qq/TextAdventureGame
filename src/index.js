@@ -4,6 +4,7 @@ const prompt = require('prompt-sync')();
 // ======================== INSTÂNCIAS DE CLASSES ========================
 const Fase_1 = require('./Fases/fase_1');
 const Fase_2 = require('./Fases/fase_2');
+const Fase_3 = require('./Fases/Fase_3');
 
 const Arqueiro = require('./Personagens/Heroi/Arqueiro');
 const Guerreiro = require('./Personagens/Heroi/Guerreiro');
@@ -19,6 +20,7 @@ const utilities = new Utilities();
 
 const fase_1 = new Fase_1();
 const fase_2 = new Fase_2();
+const fase_3 = new Fase_3();
 
 const lojaItens = new LojaItens();
 
@@ -32,11 +34,13 @@ async function main(){
     var jogador = escolhaDeClasse(nomeJogador);
     utilities.esperarValorUsuario();
 
+    var gameOverStatus;
 
     // --------------- FASES -----------------
     // FASE 1
     console.log("");
-    await fase_1.iniciarFase(jogador);
+    
+    gameOverStatus = await fase_1.iniciarFase(jogador);
 
     utilities.esperarValorUsuario();
     
@@ -44,10 +48,15 @@ async function main(){
 
     // FASE 2
     console.log("");
-    await fase_2.iniciarFase(jogador);
+    gameOverStatus = await fase_2.iniciarFase(jogador, gameOverStatus);
 
+    console.log("================================================================================================================");
 
     // FASE 3
+
+    console.log("");
+    await fase_3.iniciarFase(jogador, gameOverStatus);
+
 
     // FASE 4
 
@@ -81,7 +90,6 @@ function escolhaDeClasse(nomeJogador){
     let valorUsuario, classeEscolhida;
 
     do{
-
         console.log("Vamos escolher sua classe. Escolha umas das classes abaixo: ");
         console.log(" 1 - Guerreiro");
         console.log(" 2 - Mago");

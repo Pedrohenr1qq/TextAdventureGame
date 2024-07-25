@@ -5,6 +5,10 @@ const prompt = require("prompt-sync")();
 class Utilities{
     constructor(){}
 
+    arredondarValor(valor, decimais){
+        return valor.toFixed(decimais);
+    }
+
     esperarValorUsuario(){
         console.log("");
         let valorUsuario = prompt("Digite alguma coisa para continuar: ");

@@ -1,6 +1,3 @@
-const Utilities = require("../Utilities");
-const utilities = new Utilities();
-
 const FaseGeral = require('./FaseGeral');
 const Fantasma = require('../Personagens/Monstros/andar_2/Fantasma');
 const Basilico = require('../Personagens/Monstros/andar_2/Basilico');
@@ -8,7 +5,7 @@ const Basilico = require('../Personagens/Monstros/andar_2/Basilico');
 const fantasma = new Fantasma();
 const basilico = new Basilico();
 
-class Fase_1 extends FaseGeral{
+class Fase_2 extends FaseGeral{
     gameOver = false;
     constructor(){
         super("Andar das Bestas Mágicas")
@@ -34,7 +31,7 @@ class Fase_1 extends FaseGeral{
         while((jogador.getVida() > 0) && (monstro.getVida() > 0)){
             console.log("Lutando... \n");
             console.log(`\n--------------------- RODADA - ${rodada} ------------------------\n`);
-            await utilities.sleep(1);
+            await this.utilities.sleep(1);
 
             if(!pretrificacao){
                 danoJogador = jogador.atacar();
@@ -90,20 +87,24 @@ class Fase_1 extends FaseGeral{
     }
 
 
-    async iniciarFase(jogador){
-        this.apresentarFase();
-        utilities.esperarValorUsuario();
+    async iniciarFase(jogador, gameOverStatus){
+        if(!gameOverStatus){
+            this.apresentarFase();
+            this.utilities.esperarValorUsuario();
 
-        await this.lutarComMonstro(fantasma, jogador);
-        utilities.esperarValorUsuario();
+            await this.lutarComMonstro(fantasma, jogador);
+            this.utilities.esperarValorUsuario();
+            
+            if(!gameOverStatus){
+                await this.lutarComMonstro(basilico, jogador);
+                this.utilities.esperarValorUsuario();
+            }
+            
+            this.fimDaFase(jogador);
+        }
 
-        await this.lutarComMonstro(basilico, jogador);
-        utilities.esperarValorUsuario();
-
-        this.fimDaFase(jogador);
+        return this.getGameOver();
     }
-
-
 }
 
-module.exports = Fase_1;
+module.exports = Fase_2;

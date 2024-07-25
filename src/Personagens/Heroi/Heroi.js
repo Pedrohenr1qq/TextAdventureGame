@@ -46,7 +46,8 @@ class Heroi extends Personsagem{
         this.moedas = novasMoedas;
     }
     
-    resetarVida(){
+    restaurarVida(){
+        console.log("Vida restaurada...");
         this.setVida(this.vidaInicial);
     }
 
@@ -63,17 +64,17 @@ class Heroi extends Personsagem{
 
     aumentarNivel(){
         let novaVida, novoPoderAtaque, novaDefesa, novasMoedas;
-        let taxaUpgrade = 0.3;
+        let taxaUpgrade = 0.3 + (0.1 * (this.getNivel() - 1));
     
         console.log("\n ------------------ AUMENTO DE NÍVEL---------------------")
         console.log("Subindo os nivels do jogador...");
 
         console.log("Restaurando vida para valor inicial...");
-        this.resetarVida();
+        this.restaurarVida();
 
-        novaVida = this.getVida() *  ( 1 + taxaUpgrade * this.getNivel());
-        novoPoderAtaque = this.getPoderAtaque() * ( 1 + taxaUpgrade * this.getNivel());
-        novaDefesa = this.getDefesa() * ( 1 + taxaUpgrade/10 * this.getNivel());
+        novaVida = this.getVida() *  ( 1 + taxaUpgrade);
+        novoPoderAtaque = this.getPoderAtaque() * ( 1 + taxaUpgrade);
+        novaDefesa = this.getDefesa() * ( 1 + taxaUpgrade/10);
         novasMoedas = this.getMoedas() + 100;
 
         this.setVida(novaVida);
@@ -108,13 +109,36 @@ class Heroi extends Personsagem{
         novaVida = this.getVida() - vidaReduzida;
         if(novaVida < 0) novaVida = 0;
 
-        console.log(`O ${this.getNome()} sofreu dano e teve sua vida reduzida em ${vidaReduzida} pontos.`);
+        console.log(`O ${this.getNome()} sofreu dano.`);
+        console.log(`Dano sofrido: ${vidaReduzida}`);
         console.log(`Vida do ${this.getNome()}: ${this.getVida()} >>> ${novaVida}`);
 
         this.setVida(novaVida);
 
         console.log(`A vida atual do ${this.getNome()} ${this.getNomeJogador()} é: ${this.getVida()}.`);
         console.log(" ---------------------------------------- ");
+    }
+
+    alterarAtributo(atributo, novoValor){ // Função para alterar algum atributo quando algum monstro utilizar um ataque especial. Retorna o valor antigo    
+        let valorAnterior = 0; 
+        if(atributo == "Vida"){
+            valorAnterior = this.getVida();
+            this.setVida(novoValor);
+        }
+        else if(atributo == "Poder de Ataque"){
+            valorAnterior = this.getPoderAtaque();
+            this.setPoderAtaque(novoValor);
+        }
+        else if(atributo == "Defesa"){
+            valorAnterior = this.getDefesa();
+            this.setDefesa(novoValor);
+        }
+        else {
+
+        }
+        console.log(`${atributo}: ${valorAnterior} >>> ${novoValor}`);
+
+        return valorAnterior;
     }
 
     receberMoedas(moedas){
