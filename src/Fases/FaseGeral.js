@@ -4,7 +4,6 @@ const Utilities = require("../Utilities");
 class FaseGeral{
     utilities = new Utilities();
 
-
     desistiu = 0;
     gameOver = false;
 
@@ -74,6 +73,7 @@ class FaseGeral{
 
         console.log("Você receberá um aumento de status");
         jogador.restaurarVida();
+        console.log("");
         jogador.alterarAtributo("Vida", (jogador.getVida() * (1 + taxaUpgrade)));
         jogador.alterarAtributo("Defesa", (jogador.getDefesa() * (1 + taxaUpgrade/10)));
         jogador.alterarAtributo("Poder de Ataque", (jogador.getPoderAtaque() * (1 + taxaUpgrade)));

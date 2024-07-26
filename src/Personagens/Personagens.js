@@ -7,8 +7,13 @@
  *      - Defesa: refere-se à porcentagem do dano que o personagem consegue reduzir
  * 
 */
+const Utilities = require("../Utilities");
+
+
 
 class Personsagem{
+    utilities = new Utilities();
+
     constructor(nome, vida, poderAtaque, defesa){        
         this.nome = nome; 
         this.vida = vida; 

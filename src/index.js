@@ -28,7 +28,7 @@ const lojaItens = new LojaItens();
 async function main(){
 
     //  -------- Apresentação da Dungeon -------------
-    console.log("Seja bem vindo caro jogador à Dungeon das Bestas. Vamos comecar? ");
+    console.log("Seja bem vindo caro aventureiro à Dungeon das Bestas. Vamos comecar? ");
     var nomeJogador = getNome();
     utilities.esperarValorUsuario();
     var jogador = escolhaDeClasse(nomeJogador);
@@ -44,25 +44,29 @@ async function main(){
 
     utilities.esperarValorUsuario();
     
-    console.log("================================================================================================================");
+    if(!gameOverStatus) console.log("================================================================================================================");
 
     // FASE 2
-    console.log("");
-    gameOverStatus = await fase_2.iniciarFase(jogador, gameOverStatus);
+    if(!gameOverStatus){
+        console.log("");
+        gameOverStatus = await fase_2.iniciarFase(jogador, gameOverStatus);
+    
+        console.log("================================================================================================================");
+    }
 
-    console.log("================================================================================================================");
-
-    // FASE 3
-
-    console.log("");
-    await fase_3.iniciarFase(jogador, gameOverStatus);
-
-
-    // FASE 4
-
-    // FASE 5 -- BONUS
-
-    // FASE 6 -- FINAL
+    // FASE BONUS
+    if(!gameOverStatus){
+        console.log("");
+        if(fase_2.entradaSecreta){
+            console.log(" Entrada secreta aqui");
+            console.log("================================================================================================================");
+        }    
+    }
+    // FASE 3 -- FINAL
+    if(!gameOverStatus){
+        console.log("");
+        await fase_3.iniciarFase(jogador, gameOverStatus);    
+    }
 
 }
 

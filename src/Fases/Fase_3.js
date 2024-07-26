@@ -43,8 +43,10 @@ class Fase_3 extends FaseGeral{
             if(rodada == 5){ // Após tres rodadas, o jogador volta ao normal
                 console.log("\nParabéns Aventureiro, o efeito de ataque especial do monstro passou. Você aguentou bem...\n");
                 if(monstro.index == 1){
+                    console.log("Atributos restaurados: ");
                     jogador.alterarAtributo("Poder de Ataque", poderAtaqueInicial);
                     jogador.alterarAtributo("Defesa", defesaInicial);
+                    console.log("");
                 }
                 ataqueEspecialAtivo = false;
 
@@ -54,19 +56,25 @@ class Fase_3 extends FaseGeral{
             danoJogador = jogador.atacar();
 
             if(!ataqueEspecialAtivo) monstro.sofrerDano(danoJogador);
-            else {
-                
+
+            else {    
                 console.log(`\nO ${jogador.getNome()} foi afetado pelo ataque especial do monstro ${monstro.getNome()}... \n`);
 
                 if(monstro.index == 0) {    // GOLEM --> reflete 70% do dano recebido e recebe 30%
-                    console.log(`O jogador teve seu dano refletido em ${taxaReducao*100}%.`);
+                    console.log(`O jogador teve seu dano refletido em ${this.utilities.arredondarValor(taxaReducao*100)}%.`);
                     jogador.sofrerDano(danoJogador * taxaReducao);
-                    console.log(`O monstro receberá ${(1 - taxaReducao) * 100}% do dano do ${jogador.getNome()}`);
+                    console.log(`O monstro receberá ${this.utilities.arredondarValor((1 - taxaReducao) * 100)}% do dano do ${jogador.getNome()}`);
                     monstro.sofrerDano(danoJogador * (1 - taxaReducao));
                 }
                 else {                      // BRUXA 
-                    poderAtaqueInicial = jogador.alterarAtributo("Poder de Ataque", jogador.getPoderAtaque() * taxaReducao);
-                    defesaInicial = joagor.alterarAtributo("Defesa", jogador.getDefesa() * taxaReducao);
+                    if(rodada == 2){
+                        poderAtaqueInicial = jogador.alterarAtributo("Poder de Ataque", jogador.getPoderAtaque() * taxaReducao);
+                        defesaInicial = jogador.alterarAtributo("Defesa", jogador.getDefesa() * taxaReducao);
+                        this.utilities.esperarValorUsuario();
+                    }
+                    console.log("");
+                    danoJogador = jogador.getPoderAtaque();
+                    monstro.sofrerDano(danoJogador)
                 }
                 console.log("");
             }
@@ -78,11 +86,8 @@ class Fase_3 extends FaseGeral{
 
             if(monstro.getVida() <= 0){
                 console.log(`O ${monstro.getNome()} foi derrotado`);
-                this.receberRecompensas(jogador, monstro);
                 break;
             }
-
-
     
             danoMonstro = monstro.atacar();
             jogador.sofrerDano(danoMonstro);
@@ -92,13 +97,14 @@ class Fase_3 extends FaseGeral{
 
         console.log("Luta encerrada...\n");
 
-        console.log(`Vida do ${jogador.getNome()} : ${jogador.getVida()}`);
+        console.log(`Vida do ${jogador.getNome()} : ${this.utilities.arredondarValor(jogador.getVida())}`);
 
         if(jogador.getVida() <= 0){
             console.log(`O aventureiro da classe ${jogador.getNome()} morreu ao lutar contra o ${monstro.getNome()} no ${this.getNome()}!`);
             this.gameOver = true;
 
         }else{
+            this.receberRecompensas(jogador, monstro);  
             this.gameOver = false;
         }
 
@@ -119,12 +125,17 @@ class Fase_3 extends FaseGeral{
 
             await this.lutarComMonstro(golem, jogador);
             this.utilities.esperarValorUsuario();
-            if(!gameOverStatus){
+
+
+
+            if(!this.getGameOver()){
                 await this.lutarComMonstro(bruxa, jogador);
                 this.utilities.esperarValorUsuario();
             }
             
             this.fimDaFase(jogador);
+            this.utilities.esperarValorUsuario();
+
         }
 
         return this.getGameOver();

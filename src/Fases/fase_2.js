@@ -6,6 +6,7 @@ const fantasma = new Fantasma();
 const basilico = new Basilico();
 
 class Fase_2 extends FaseGeral{
+    entradaSecreta = false;
     gameOver = false;
     constructor(){
         super("Andar das Bestas Mágicas")
@@ -33,6 +34,20 @@ class Fase_2 extends FaseGeral{
             console.log(`\n--------------------- RODADA - ${rodada} ------------------------\n`);
             await this.utilities.sleep(1);
 
+            if(rodada == 3){
+                if(monstro.index == 0) danoInicialJogador = monstro.ataqueEspecial(jogador);
+                else pretrificacao = monstro.ataqueEspecial(jogador);
+                console.log("");
+                this.utilities.esperarValorUsuario();
+            }
+
+            if(rodada == 5){ // Após duas rodadas, o jogador volta ao normal
+                console.log("\nParabéns Aventureiro, o efeito de ataque especial do monstro passou. Você aguentou bem...\n");
+                if(monstro.index == 0) jogador.setPoderAtaque(danoInicialJogador);
+                pretrificacao = false;
+                this.utilities.esperarValorUsuario();
+            }
+
             if(!pretrificacao){
                 danoJogador = jogador.atacar();
                 monstro.sofrerDano(danoJogador);
@@ -41,20 +56,6 @@ class Fase_2 extends FaseGeral{
             if(monstro.getVida() <= 0){
                 console.log("Monstro Derrotado");
                 break;
-            }
-
-            if(rodada == 3){
-                if(monstro.index == 0) danoInicialJogador = monstro.ataqueEspecial(jogador);
-                else pretrificacao = monstro.ataqueEspecial(jogador);
-                console.log("");
-                utilities.esperarValorUsuario();
-            }
-
-            if(rodada == 5){ // Após duas rodadas, o jogador volta ao normal
-                console.log("\nParabéns Aventureiro, o efeito de ataque especial do monstro passou. Você aguentou bem...\n");
-                if(monstro.index == 0) jogador.setPoderAtaque(danoInicialJogador);
-                pretrificacao = false;
-                utilities.esperarValorUsuario();
             }
     
             danoMonstro = monstro.atacar();
@@ -65,7 +66,7 @@ class Fase_2 extends FaseGeral{
 
         console.log("Luta encerrada...\n");
 
-        console.log(`Vida do ${jogador.getNome()} : ${jogador.getVida()}`);
+        console.log(`Vida do ${jogador.getNome()} : ${this.utilities.arredondarValor(jogador.getVida())}`);
 
         if(jogador.getVida() <= 0){
             console.log(`O aventureiro da classe ${jogador.getNome()} morreu ao lutar contra o ${monstro.getNome()} no ${this.getNome()}!`);
@@ -86,6 +87,27 @@ class Fase_2 extends FaseGeral{
         }
     }
 
+    encontroEntradaSecreta(){
+        let userInput;
+        console.log("-----------------------------------------------------------------------------------------------");
+        console.log("Ao andar pela dundeon, você se deparou com uma porta secreta");
+        console.log("Coberta de mugos e simbolos arcanos, ela parece levar para um local cheio de riquezas desconhecidas da dungeon.")
+        console.log("Se você seguir adiante, entrará na fase final e, caso consiga derrotar os ultimos montros, terá concluído a dungeon e seu nome entrará para a história.");
+        console.log("E então, caro aventureiro, o que você irá fazer? ");
+        console.log("");
+        userInput = this.utilities.validarValorUsuario("Digite y para adentrar a porta secreta e qualquer outro valor para ignorar: ", "string");
+        if(userInput.toUpperCase() == 'Y'){
+            console.log("Muito bem. Vejo que você é corajoso. Que você encontre tesouros jamais visto por olho humano e que a dungeon te guie...");
+            this.entradaSecreta = true;
+        }
+        else{
+            console.log("Continuando com o caminho...\n");
+            this.entradaSecreta = false;
+        }
+
+        console.log("--------------------------------------------------------------------");
+    }
+
 
     async iniciarFase(jogador, gameOverStatus){
         if(!gameOverStatus){
@@ -95,12 +117,19 @@ class Fase_2 extends FaseGeral{
             await this.lutarComMonstro(fantasma, jogador);
             this.utilities.esperarValorUsuario();
             
-            if(!gameOverStatus){
+            if(!this.getGameOver()){
                 await this.lutarComMonstro(basilico, jogador);
                 this.utilities.esperarValorUsuario();
             }
-            
+
             this.fimDaFase(jogador);
+            this.utilities.esperarValorUsuario();
+
+            if(!this.getGameOver()){
+                this.encontroEntradaSecreta();
+                this.utilities.esperarValorUsuario();
+            }
+
         }
 
         return this.getGameOver();

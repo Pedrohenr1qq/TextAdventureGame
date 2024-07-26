@@ -5,8 +5,8 @@ const prompt = require("prompt-sync")();
 class Utilities{
     constructor(){}
 
-    arredondarValor(valor, decimais){
-        return valor.toFixed(decimais);
+    arredondarValor(valor){
+        return valor.toFixed(2);
     }
 
     esperarValorUsuario(){

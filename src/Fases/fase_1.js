@@ -49,7 +49,7 @@ class Fase_1 extends FaseGeral{
 
         console.log("Luta encerrada...\n");
 
-        console.log(`Vida do ${jogador.getNome()}: ${jogador.getVida()}`);
+        console.log(`Vida do ${jogador.getNome()}: ${this.utilities.arredondarValor(jogador.getVida())}`);
 
         if(jogador.getVida() <= 0){
             console.log(`O jogador de classe ${jogador.getNome()} morreu ao lutar contra o ${monstro.getNome()} no ${this.getNome()}!`);
@@ -78,7 +78,7 @@ class Fase_1 extends FaseGeral{
         await this.lutarComMonstro(goblin, jogador);
         this.utilities.esperarValorUsuario();
 
-        if(!this.gameOver){
+        if(!this.getGameOver()){
             await this.lutarComMonstro(orc, jogador);
             this.utilities.esperarValorUsuario();
         }

@@ -53,14 +53,35 @@ class Heroi extends Personsagem{
 
     mostrarDados(){
         console.log(`--------- ${this.getNome()} --------`);
-        console.log(`Vida: ${this.getVida()}`);
-        console.log(`Defesa: ${this.getDefesa()}`);
-        console.log(`Poder de Ataque: ${this.getPoderAtaque()}`);
+        console.log(`Vida: ${this.utilities.arredondarValor(this.getVida())}`);
+        console.log(`Defesa: ${this.utilities.arredondarValor(this.getDefesa())}`);
+        console.log(`Poder de Ataque: ${this.utilities.arredondarValor(this.getPoderAtaque())}`);
         console.log(`Moedas: ${this.getMoedas()}`);
         console.log(" ----------------------------------- ");
     }
 
 
+    alterarAtributo(atributo, novoValor){ // Função para alterar algum atributo
+        let valorAnterior = 0; 
+        if(atributo == "Vida"){
+            valorAnterior = this.getVida();
+            this.setVida(novoValor);
+        }
+        else if(atributo == "Poder de Ataque"){
+            valorAnterior = this.getPoderAtaque();
+            this.setPoderAtaque(novoValor);
+        }
+        else if(atributo == "Defesa"){
+            valorAnterior = this.getDefesa();
+            this.setDefesa(novoValor);
+        }
+        else {
+
+        }
+        console.log(`${atributo}: ${this.utilities.arredondarValor(valorAnterior)} >>> ${this.utilities.arredondarValor(novoValor)}`);
+
+        return valorAnterior;
+    }
 
     aumentarNivel(){
         let novaVida, novoPoderAtaque, novaDefesa, novasMoedas;
@@ -97,7 +118,7 @@ class Heroi extends Personsagem{
         console.log(" ----------------------------------------");
         console.log(`O ${this.getNome()} está atacando...`);
         danoAtaque = this.getPoderAtaque();
-        console.log("Dano causado: " + danoAtaque);
+        console.log("Dano causado: " + this.utilities.arredondarValor(danoAtaque));
         console.log("");
 
         return danoAtaque;
@@ -110,36 +131,15 @@ class Heroi extends Personsagem{
         if(novaVida < 0) novaVida = 0;
 
         console.log(`O ${this.getNome()} sofreu dano.`);
-        console.log(`Dano sofrido: ${vidaReduzida}`);
-        console.log(`Vida do ${this.getNome()}: ${this.getVida()} >>> ${novaVida}`);
+        console.log(`Dano sofrido: ${this.utilities.arredondarValor(vidaReduzida)}`);
+        console.log(`Vida do ${this.getNome()}: ${this.utilities.arredondarValor(this.getVida())} >>> ${this.utilities.arredondarValor(novaVida)}`);
 
         this.setVida(novaVida);
 
-        console.log(`A vida atual do ${this.getNome()} ${this.getNomeJogador()} é: ${this.getVida()}.`);
+        console.log(`A vida atual do ${this.getNome()} ${this.getNomeJogador()} é: ${this.utilities.arredondarValor(this.getVida())}.`);
         console.log(" ---------------------------------------- ");
     }
 
-    alterarAtributo(atributo, novoValor){ // Função para alterar algum atributo quando algum monstro utilizar um ataque especial. Retorna o valor antigo    
-        let valorAnterior = 0; 
-        if(atributo == "Vida"){
-            valorAnterior = this.getVida();
-            this.setVida(novoValor);
-        }
-        else if(atributo == "Poder de Ataque"){
-            valorAnterior = this.getPoderAtaque();
-            this.setPoderAtaque(novoValor);
-        }
-        else if(atributo == "Defesa"){
-            valorAnterior = this.getDefesa();
-            this.setDefesa(novoValor);
-        }
-        else {
-
-        }
-        console.log(`${atributo}: ${valorAnterior} >>> ${novoValor}`);
-
-        return valorAnterior;
-    }
 
     receberMoedas(moedas){
         let novasMoedas = this.getMoedas() + moedas;

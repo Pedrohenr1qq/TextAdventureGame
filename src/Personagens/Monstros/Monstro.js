@@ -49,10 +49,10 @@ class Monstro extends Personsagem{
         if(novaVida < 0) novaVida = 0;
 
         console.log(`O ${this.getNome()} sofreu dano.`);
-        console.log(`Vida do ${this.getNome()}: ${this.getVida()} >>> ${novaVida}`);
+        console.log(`Vida do ${this.getNome()}: ${this.utilities.arredondarValor(this.getVida())} >>> ${this.utilities.arredondarValor(novaVida)}`);
 
         this.setVida(novaVida);
-        console.log(`A vida atual do ${this.getNome()} é: ${this.getVida()}`);
+        console.log(`A vida atual do ${this.getNome()} é: ${this.utilities.arredondarValor(this.getVida())}`);
         console.log(" --------------- ");
     }
 
@@ -61,9 +61,9 @@ class Monstro extends Personsagem{
 
     mostrarDados(){
         console.log(`--------- ${this.getNome()} --------`);
-        console.log(`Vida: ${this.getVida()}`);
-        console.log(`Defesa: ${this.getDefesa()}`);
-        console.log(`Poder de Ataque: ${this.getPoderAtaque()}`);
+        console.log(`Vida: ${this.utilities.arredondarValor(this.getVida())}`);
+        console.log(`Defesa: ${this.utilities.arredondarValor(this.getDefesa())}`);
+        console.log(`Poder de Ataque: ${this.utilities.arredondarValor(this.getPoderAtaque())}`);
         console.log(`Valor: ${this.getValor()}`);
         console.log(" ----------------------------------- ");
     }
@@ -72,7 +72,7 @@ class Monstro extends Personsagem{
     furia(){
         let novaVida, novoPoderAtaque, novaDefesa;
         let taxaUpgrade = 0.30;
-        console.log(`A dungeon fez com que os monstros presentes nela entrassem em fúria. Todos os seus status aumentarão em ${taxaUpgrade*100}%. `);
+        console.log(`A dungeon fez com que os monstros presentes nela entrassem em fúria. Todos os seus status aumentarão em ${this.utilities.arredondarValor(taxaUpgrade*100)}%. `);
         
         novaVida = this.getVida() *  ( 1 + taxaUpgrade );
         novoPoderAtaque = this.getPoderAtaque() * ( 1 + taxaUpgrade);

@@ -2,7 +2,7 @@ const Monstro = require('../Monstro');
 
 class Basilico extends Monstro{
     constructor(){
-        super("Basilico", 200, 55, 0.015, 2, 80, 1, "Petrificação");
+        super("Basilico", 200, 55, 0.3, 2, 80, 1, "Petrificação");
     }
 
     ataqueEspecial(jogador){
