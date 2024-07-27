@@ -1,11 +1,18 @@
-const Utilities = require("../Utilities");
+/**
+ * Classe base para a criação das demais fases. 
+ * Possui algunas funções comuns para todas as fases
+ * Atributos:
+ *  - Nome: Nome da fase/andar da Dungeon;
+ * 
+ */
 
+const Utilities = require("../Utilities");
 
 class FaseGeral{
     utilities = new Utilities();
 
-    desistiu = 0;
-    gameOver = false;
+    desistiu = 0;       // Para saber se o jogador desistiu de lutar contra o monstro
+    gameOver = false;   // Para saber se o jogador perdeu em sua batalha contra o monstro e assim, encerrar sua aventura
 
     constructor(nome){
         this.nome = nome;
@@ -19,10 +26,8 @@ class FaseGeral{
         return this.gameOver;
     }
 
-    apresentarFase(){
-
-    }
-
+    // Função para realizar o encontro com algum monstro na dungeon.
+    // O jogador pode desistir de lutar apenas do primeiro monstro. Alem disso, caso desista de lutar uma vez, isso faz com que os monstros entrem em fúria
     encontroComMonstro(monstro, jogador){
         let userInput;
         let vaiLutar = true;
@@ -30,25 +35,25 @@ class FaseGeral{
         console.log(`Você se deparou com um monstro. Suas características são: `);
         monstro.mostrarDados();
 
-        if(monstro.index == 0){
+        if(monstro.index == 0){             // 1º Monstro
             userInput = this.utilities.validarValorUsuario("Deseja lutar (y para sim e qualquer outro valor para não) ? ", "string");
         }
-        else {
+        else {                              // 1º Monstro
             console.log("Você se deparou com o ultimo monstro da dungeon. Ele é o monstro mais forte do local. ");
             console.log("Se você for lutar contra ele, corre o risco de morrer. Tem certeza que deseja lutar contra ele? ");
             userInput = this.utilities.validarValorUsuario("Deseja lutar (y para sim e qualquer outro valor para não) ? ", "string");
             console.log("");
 
             // Só pode pular o primeiro monstro
-            if(userInput != 'y' ){
+            if(userInput.toUpperCase() != 'Y' ){
                 console.log("Essa não. O monstro sentiu o seu cheiro e agora está indo atrás de você. Você terá que lutar agora. Ponha suas armas a postos");
                 this.utilities.esperarValorUsuario();
-                userInput = 'y';
+                userInput.toUpperCase() = 'Y';
             }
         }
 
         if(this.desistiu == 0 ){
-            if(userInput == 'y'){
+            if(userInput.toUpperCase() == 'Y'){
                 vaiLutar = true;
             }else{
                 console.log("\nVocê se escondeu e o monstro continou seguindo seu caminho. Agora o caminho está livre para continuar.\n");
@@ -59,15 +64,16 @@ class FaseGeral{
         }else {
             console.log("\nComo você não lutou antes, terá que lutar agora contra este monstro para poder passar da dungeon. \n ");
             vaiLutar = true;
-            monstro.furia();
+            monstro.furia();        // Ativando o modo de fúria dos montros
             this.utilities.esperarValorUsuario();
         }
 
         return vaiLutar;
     }
 
+    // Caso o jogador derrote algum monstro, ele recebe recompenas e um pequeno aumento de status e moedas referente ao valor do monstro.
     receberRecompensas(jogador, monstro){
-        let taxaUpgrade = (monstro.index == 0) ? 0.1 : 0.25;
+        let taxaUpgrade = (monstro.index == 0) ? 0.1 : 0.20; // O segundo monstro da um upgrade maior que o primeiro
         console.log("\n-------------------------- RECEBENDO RECOMPENSAS ----------------------------")
         console.log(`Parabéns caro ${jogador.getNome()}. Você ganhou contra o monstro "${monstro.getNome()}" no ${this.getNome()}!`);
 
@@ -84,6 +90,7 @@ class FaseGeral{
         jogador.receberMoedas(monstro.getValor());
     }
 
+    // Função para finalizar a fase. Leva em conta se o jogador ganhou ou perdeu em sua luta contra os monstros da dungeon
     fimDaFase(jogador){
         this.desistiu = 0;
 
@@ -94,7 +101,7 @@ class FaseGeral{
             process.exit();
         }else{
             console.log(`Parabéns jogador. Voce finalizou o ${this.getNome()}!`);
-            jogador.aumentarNivel();
+            jogador.aumentarNivel();        // Aumenta o nivel do jogador sempre que ele conclui um andar/fase da dungeon
             console.log(`Vamos prosseguir para o proximo andar...`);
         }
     }

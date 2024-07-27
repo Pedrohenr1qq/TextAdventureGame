@@ -32,46 +32,30 @@ async function main(){
     var jogador = escolhaDeClasse(nomeJogador);
     utilities.esperarValorUsuario();
 
-    var gameOverStatus;
-
-
     // --------------- FASES -----------------
     // FASE 1
     console.log("");
     
-    gameOverStatus = await fase_1.iniciarFase(jogador);
-
-    utilities.esperarValorUsuario();
-    
-    if(!gameOverStatus) console.log("================================================================================================================");
+    await fase_1.iniciarFase(jogador);    
+    console.log("================================================================================================================");
 
     // FASE 2
 
-    await fase_2.iniciarFase(jogador, gameOverStatus);
+    console.log("");
+    await fase_2.iniciarFase(jogador);
     console.log("================================================================================================================");
 
-/*
-
-    if(!gameOverStatus){
-        console.log("");
-        gameOverStatus = await fase_2.iniciarFase(jogador, gameOverStatus);
-    
-        console.log("================================================================================================================");
-    }
-*/
     // FASE BONUS
-    if(!gameOverStatus){
-        console.log("");
-        if(fase_2.entradaSecreta){
-            faseBonus.iniciarFase(jogador);
-            console.log("================================================================================================================");
-        }    
-    }
+    console.log("");
+    if(fase_2.entradaSecreta){
+        faseBonus.iniciarFase(jogador);
+        console.log("================================================================================================================");
+    }    
+
     // FASE 3 -- FINAL
-    if(!gameOverStatus){
-        console.log("");
-        await fase_3.iniciarFase(jogador, gameOverStatus);    
-    }
+    console.log("");
+    await fase_3.iniciarFase(jogador);    
+
 
     // ---------------- Fim do Jogo -------------------
     fimDeJogo();
@@ -144,7 +128,7 @@ function escolhaDeClasse(nomeJogador){
     
         valorUsuario = utilities.validarValorUsuario("Tem certeza da sua escolha (digite y para continuar e qualquer outro valor para escolher outra classe) ? ");
     
-    }while(valorUsuario != 'y');
+    }while(valorUsuario.toUpperCase() != 'Y');
 
 
     console.log(`\nClasse escolhida com sucesso: ${classeEscolhida.getNome()}! Boa sorte ${nomeJogador}.`);

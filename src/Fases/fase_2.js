@@ -2,6 +2,7 @@ const FaseGeral = require('./FaseGeral');
 const Fantasma = require('../Personagens/Monstros/andar_2/Fantasma');
 const Basilico = require('../Personagens/Monstros/andar_2/Basilico');
 
+// Monstros da fase/andar 2 da dungeon
 const fantasma = new Fantasma();
 const basilico = new Basilico();
 
@@ -9,13 +10,13 @@ class Fase_2 extends FaseGeral{
     entradaSecreta = false;
     gameOver = false;
     constructor(){
-        super("Andar das Bestas Mágicas")
+        super("Andar das Bestas Mágicas") // Nome do andar/fase
     }
 
     getNome(){
         return this.nome;
     }
-
+    // Uma breve apresentação do andar/fase
     apresentarFase(){
         console.log(` =================== ${this.getNome()} ===============================`);
         console.log(`Seja bem vindo caro jogador ao primeiro andar desta dungeon!`);
@@ -23,8 +24,9 @@ class Fase_2 extends FaseGeral{
         console.log("Você tem a destreza e, principalmente, a sorte para iniciar nesta jornada? ");
     }
 
+    // Luta contra os monstros
     async lutar(monstro, jogador){
-        let rodadasPoderAtivo, rodadaInicio = 3;  // O poder espcoial do monstro é ativado na 3ª rodada
+        let rodadasPoderAtivo, rodadaInicio = 3;  // O poder especial do monstro é ativado na 3ª rodada
         let danoJogador, danoMonstro, rodada = 1, danoInicialJogador, pretrificacao = false, ataqueEspecialAtivo = false;
 
         rodadasPoderAtivo = parseInt(Math.random() * 5 + 1); // O monstro podera ter seu poder ativo por no minimo 1 rodada e no max 5. Valor aleatório. 
@@ -32,15 +34,16 @@ class Fase_2 extends FaseGeral{
         console.log("\n -------------------------- LUTA COM O MONSTRO -------------------------------------\n");
         console.log(`O jogador da classe ${jogador.getNome()} esta lutando com o monstro "${monstro.getNome()}"`);
 
+        // Loop para execução da luta 
         while((jogador.getVida() > 0) && (monstro.getVida() > 0)){
             console.log("Lutando... \n");
             console.log(`\n--------------------- RODADA - ${rodada} ------------------------\n`);
-            await this.utilities.sleep(1);
+            await this.utilities.sleep(1);                  // Uma pequena pausa entre as rodadas para dar a ideia de uma luta real.
 
             if(rodada == rodadaInicio){ // Ataque especial dos monstros ativado
                 ataqueEspecialAtivo = true;
-                if(monstro.index == 0) danoInicialJogador = monstro.ataqueEspecial(jogador);
-                else pretrificacao = monstro.ataqueEspecial(jogador);
+                if(monstro.index == 0) danoInicialJogador = monstro.ataqueEspecial(jogador);    // Poder especial do fantasma.
+                else pretrificacao = monstro.ataqueEspecial(jogador);                           // Poder especial do Basilico;
                 console.log(`Você deve aguentar por: ${rodadasPoderAtivo} rodadas`);
                 console.log("");
                 this.utilities.esperarValorUsuario();
@@ -48,12 +51,14 @@ class Fase_2 extends FaseGeral{
 
             if(rodada == (rodadaInicio + rodadasPoderAtivo)){ // Após n = rodadasPoderAtivo rodadas, o jogador volta ao normal
                 console.log(`\nParabéns Aventureiro, o efeito de ataque especial do monstro "${monstro.getNome()}" passou. Você aguentou bem...\n`);
-                if(monstro.index == 0) jogador.setPoderAtaque(danoInicialJogador);
-                pretrificacao = false;
+                // Restauração dos atributos do jogador
+                if(monstro.index == 0) jogador.setPoderAtaque(danoInicialJogador);      
+                pretrificacao = false;                                                          
                 ataqueEspecialAtivo = false;
                 this.utilities.esperarValorUsuario();
             }
-
+            
+            // Vez de ataque do jogador.
             if(!ataqueEspecialAtivo) {
                 danoJogador = jogador.atacar();
                 monstro.sofrerDano(danoJogador)
@@ -71,21 +76,29 @@ class Fase_2 extends FaseGeral{
                 }
             }
 
+            // Caso o jogador morra antes do monstro, devido ao ataque especial, termina a luta.
+            if(jogador.getVida() <= 0){
+                console.log(`O ${jogador.getNome()} foi derrotado`);
+                break;
+            }
+            
+            // Se o monstro morrer após ser atacado, ele não ataca o jogador e a luta termina.
             if(monstro.getVida() <= 0){
                 console.log(`O monstro "${monstro.getNome()}" foi derrotado`);
                 break;
             }
-    
+
+            // Vez de ataque do monstro
             danoMonstro = monstro.atacar();
             jogador.sofrerDano(danoMonstro);
 
             rodada++;
         }
 
+        // Fim da luta e anuncio do resultado
         console.log("Luta encerrada...\n");
 
         console.log(`Vida do ${jogador.getNome()} : ${this.utilities.arredondarValor(jogador.getVida())}`);
-
         this.utilities.esperarValorUsuario();
 
         if(jogador.getVida() <= 0){
@@ -99,6 +112,7 @@ class Fase_2 extends FaseGeral{
 
     }
 
+    // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
     async lutarComMonstro(monstro, jogador){
         console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
         let vaiLutar = this.encontroComMonstro(monstro, jogador);
@@ -107,6 +121,7 @@ class Fase_2 extends FaseGeral{
         }
     }
 
+    // Função para dar acesso à fase bonus, que concede tesouros extras ao jogador.
     encontroEntradaSecreta(){
         let userInput;
         console.log("-----------------------------------------------------------------------------------------------");
@@ -128,31 +143,30 @@ class Fase_2 extends FaseGeral{
         console.log("--------------------------------------------------------------------");
     }
 
+    // Função que dá inicio à fase que é chamada na parte principal do cógigo (index js)
+    async iniciarFase(jogador){
+        this.apresentarFase();
+        this.utilities.esperarValorUsuario();
+        
+        // Encontro e possível luta com o 1º monstro
+        await this.lutarComMonstro(fantasma, jogador);
+        this.utilities.esperarValorUsuario();
 
-    async iniciarFase(jogador, gameOverStatus){
-        if(!gameOverStatus){
-            this.apresentarFase();
+        // Encontro e luta com o 2º monstro, se o jogador não tiver morrido contra o primeiro.
+        if(!this.getGameOver()){
+            await this.lutarComMonstro(basilico, jogador);
             this.utilities.esperarValorUsuario();
-
-            await this.lutarComMonstro(fantasma, jogador);
-            this.utilities.esperarValorUsuario();
-            
-            if(!this.getGameOver()){
-                await this.lutarComMonstro(basilico, jogador);
-                this.utilities.esperarValorUsuario();
-            }
-
-            this.fimDaFase(jogador);
-            this.utilities.esperarValorUsuario();
-
-            if(!this.getGameOver()){
-                this.encontroEntradaSecreta();
-                this.utilities.esperarValorUsuario();
-            }
-
         }
 
-        return this.getGameOver();
+        // Finalizar a fase e avançar para o proximo andar.
+        this.fimDaFase(jogador);
+        this.utilities.esperarValorUsuario();
+
+        // Entrada secreta, caso o jogador não tenha perdido contra os monstros
+        if(!this.getGameOver()){
+            this.encontroEntradaSecreta();
+            this.utilities.esperarValorUsuario();
+        }
     }
 }
 

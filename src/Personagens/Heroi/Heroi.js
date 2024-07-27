@@ -3,12 +3,10 @@ const Personsagem = require("../Personagens");
  * Classe Base para a criação das Classes de herois (Guerreiro, Arqueiro, Mago e Ladino)
  * Classe derivada da classe Personagem
  * Atributos dessa classe:
- *      - Classe (= Nome), vida, poderAtaque e defesa são atributos herdados da classe Personagem
- *      - Nivel: Refere-se ao nível que o Heroi está, aumentando de acordo com o avanço da história (matando monstros e subindo de andar)
- *      - Fadiga: Refere-se ao "cansaço" do heroi. É uma porcentagem que influencia diretamente na vida e no poder de ataque do heroi
- *      - Dinheiro: Refere-se à capacidade do herói de conseguir comprar itens na loja
- *      - ContadorAtaque: Refere-se a quantos ataques foram dados na luta. Serve para calcular a fadiga
- * 
+ *      - nomejogador: Nome que o jogador escolhe no inicio do jogo
+ *      - classe (= Nome), vida, poderAtaque e defesa são atributos herdados da classe Personagem
+ *      - nivel: Refere-se ao nível que o Heroi está, aumentando de acordo com o avanço da história (matando monstros e subindo de andar)
+ *      - moedas: Refere-se à capacidade do herói de conseguir comprar itens na loja --> Recurso ainda a construir
 */
 
 
@@ -53,7 +51,7 @@ class Heroi extends Personsagem{
     }
 
 
-    alterarAtributo(atributo, novoValor){ // Função para alterar algum atributo
+    alterarAtributo(atributo, novoValor){ // Função para alterar algum atributo especíco (vida, poder de ataque ou defesa). Mais para questão de visualização 
         let valorAnterior = 0; 
         if(atributo == "Vida"){
             valorAnterior = this.getVida();
@@ -67,14 +65,14 @@ class Heroi extends Personsagem{
             valorAnterior = this.getDefesa();
             this.setDefesa(novoValor);
         }
-        else {
 
-        }
         console.log(`${atributo}: ${this.utilities.arredondarValor(valorAnterior)} >>> ${this.utilities.arredondarValor(novoValor)}`);
 
         return valorAnterior;
     }
 
+    // Função para aumento de nível do herói sempre que ele conclui um andar da dungeon.
+    // Os seus atributos a uma taxa de acordo com o nível.  Começa em 30% e aumenta 10% pra cada nivel
     aumentarNivel(){
         let novaVida, novoPoderAtaque, novaDefesa, novasMoedas;
         let taxaUpgrade = 0.3 + (0.1 * (this.getNivel() - 1));
@@ -87,7 +85,7 @@ class Heroi extends Personsagem{
 
         novaVida = this.getVida() *  ( 1 + taxaUpgrade);
         novoPoderAtaque = this.getPoderAtaque() * ( 1 + taxaUpgrade);
-        novaDefesa = this.getDefesa() * ( 1 + taxaUpgrade/10);
+        novaDefesa = this.getDefesa() * ( 1 + taxaUpgrade/10);  // Para ter uma defesa balenceada, seu aumento é em centésimos, ja que é uma porcentagem
         novasMoedas = this.getMoedas() + 100;
 
         this.setVida(novaVida);
@@ -103,8 +101,7 @@ class Heroi extends Personsagem{
         this.vidaInicial = this.getVida(); // A nova "vida inicial" do jogador passa a ser a vida do ultimo estágio
     }
 
-
-
+    //Função para o herói atacar. Retorna o dano causado pelo heroi
     atacar(){
         let danoAtaque;
         console.log(" ----------------------------------------");
@@ -116,6 +113,7 @@ class Heroi extends Personsagem{
         return danoAtaque;
     }
 
+    //Função para o heroi receber o dano que o atingiu. O valor do dano recebido é reduzido de acordo com a defesa do herói
     sofrerDano(danoRecebido){
         let vidaReduzida, novaVida;
         vidaReduzida = danoRecebido * (1 - this.getDefesa());
@@ -132,7 +130,7 @@ class Heroi extends Personsagem{
         console.log(" ---------------------------------------- ");
     }
 
-
+    // Função para o herói receber as moedas referentes ao valor do monstro que derrotou.
     receberMoedas(moedas){
         let novasMoedas = this.getMoedas() + moedas;
         this.setMoedas(novasMoedas);

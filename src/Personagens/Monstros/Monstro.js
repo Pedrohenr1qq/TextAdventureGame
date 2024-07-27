@@ -59,6 +59,7 @@ class Monstro extends Personsagem{
     //Metodo abstrado para os monstros
     ataqueEspecial(){}
 
+    // Função para mostrar os atributos do monstro.
     mostrarDados(){
         console.log(`--------- ${this.getNome()} --------`);
         console.log(`Vida: ${this.utilities.arredondarValor(this.getVida())}`);
@@ -68,7 +69,7 @@ class Monstro extends Personsagem{
         console.log(" ----------------------------------- ");
     }
 
-
+    // Função para aumentar os status do monstro em uma situação específica (caso o jogador tenha pulado o monstro anterior).
     furia(){
         let novaVida, novoPoderAtaque, novaDefesa;
         let taxaUpgrade = 0.30;

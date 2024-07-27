@@ -1,14 +1,17 @@
 // Classe para verificação e validação de valores, segundo o tipo de valor requisitado
+
 const prompt = require("prompt-sync")();
 
 
 class Utilities{
     constructor(){}
 
+    //Função para arrendondar o valor para 2 casas decimais. Apenas para visualização
     arredondarValor(valor){
         return valor.toFixed(2);
     }
 
+    //Função para travar o código para que o usuário possa ter uma leitura efetiva do jogo
     esperarValorUsuario(){
         console.log("");
         let valorUsuario = prompt("Digite alguma coisa para continuar: ");
@@ -93,16 +96,15 @@ class Utilities{
         return nomePadronizado;
     }
 
-    // Função auxiliar
+    // Função auxiliar assincrona para travar o código ppr um determinado tempo(seconds).
+    // Motivo do porque as funções do código precisam ser assincronas
     sleep(seconds){
-        return new Promise(resolve =>  {
+        return new Promise(resolve => {
             setTimeout(() => {
                 resolve(seconds);
             }, seconds * 1000);
         });
     }
-
-
 
     // ========================== TEST FUNCTIONS ==============================
     // função para teste do programa. 

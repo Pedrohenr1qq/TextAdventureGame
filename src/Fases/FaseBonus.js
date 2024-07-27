@@ -1,11 +1,15 @@
+/**
+ * Fase Bonus: Não possui monstros, apenas buffs para o jogador
+*/
+
 const Utilities = require('../Utilities');
 const utilities = new Utilities();
 
 class FaseBonus {
-    nome = "Jardim Secreto";
-    constructor(){
-    }
+    nome = "Jardim Secreto";    // Nome da fase
+    constructor(){}
 
+    // Uma breve apresentação do andar/fase
     apresentarFase(){
         console.log(`------------------------ ${this.nome.toUpperCase()} -----------------------------`);
         console.log(`Bem vindo, caro aventureiro, ao ${this.nome} da Dungeon`);
@@ -13,7 +17,8 @@ class FaseBonus {
         console.log("Continue andando para descobrir seus principais segredos...");
         console.log("");
     }
-
+    
+    // Função para criar tesouro com seus detalhes.  
     criarTesouro(nome, atributo, valorBuff){
 
         let tesouro = {
@@ -25,9 +30,11 @@ class FaseBonus {
         return tesouro;
     }
 
-    encontrarTesouros(){
+    // função para o jogador escolher qual tesouro quer
+    escolherTesouro(){
         let escolhaUsuario, valorInvalido;
 
+        //Criar os tesouros
         let tesouros = [
             this.criarTesouro("Armadura Dourada", "Defesa", 0.20),
             this.criarTesouro("Capa da Longevidade", "Vida", 100),
@@ -54,13 +61,13 @@ class FaseBonus {
 
         console.log("Muito bem. Espero que tenha feito uma ótima escolha.");
         console.log("");
-        console.log("Tesouro escolhido: ");
-        console.log(tesouros[escolhaUsuario - 1]['nome']);
+        console.log(`Tesouro escolhido: ${tesouros[escolhaUsuario - 1]['nome']}`);
         console.log("")
 
         return tesouros[escolhaUsuario - 1];
     }
 
+    // função para ativar o buff do tesouro escolhido no jogador.
     buffJogador(jogador, tesouroEscolhido){
         let valorAntigo;
 
@@ -82,16 +89,17 @@ class FaseBonus {
         console.log("");
     }
 
-
+    // Função para finalizar o andar/fase
     fimDaFase(){
         console.log("Muito bem caro aventureiro. Desejo-lhe sorte em sua próxima jornada");
     }
 
+    // Função que dá inicio à fase que é chamada na parte principal do cógigo (index.js)
     async iniciarFase(jogador){
         this.apresentarFase();
         utilities.esperarValorUsuario();
 
-        let tesouroEscolhido = this.encontrarTesouros();
+        let tesouroEscolhido = this.escolherTesouro();
         utilities.esperarValorUsuario();
 
         this.buffJogador(jogador, tesouroEscolhido);

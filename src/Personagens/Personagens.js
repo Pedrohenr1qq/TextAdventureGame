@@ -7,8 +7,7 @@
  *      - Defesa: refere-se à porcentagem do dano que o personagem consegue reduzir
  * 
 */
-const Utilities = require("../Utilities");
-
+const Utilities = require("../Utilities"); // Para verificação dentro das fases. Para não repetir código
 
 
 class Personsagem{
@@ -34,7 +33,7 @@ class Personsagem{
     }
 
     setVida(novaVida){
-        if(novaVida < 0) novaVida = 0;
+        if(novaVida < 0) novaVida = 0;                  // Não faz sentido uma vida negativa
         this.vida = novaVida;
     }
 
@@ -43,6 +42,7 @@ class Personsagem{
     }
 
     setPoderAtaque(novoPoderAtaque){
+        if(novoPoderAtaque < 0) novoPoderAtaque = 0;    // Não faz sentido um poder de ataque negativo
         this.poderAtaque = novoPoderAtaque;
     }
 
@@ -51,7 +51,8 @@ class Personsagem{
     }
 
     setDefesa(novaDefesa){
-        if(novaDefesa > 9.5) novaDefesa = 9.5;
+        if(novaDefesa < 0) novaDefesa = 0;              // Não faz sentido uma defesa negativa
+        if(novaDefesa > 9.5) novaDefesa = 9.5;          // Valor máximo para a defesa. 
         this.defesa = novaDefesa;
     }
 
