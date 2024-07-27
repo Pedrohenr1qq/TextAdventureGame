@@ -3,15 +3,28 @@ A text-based game about an RPG story. Made in JavaScript, with Node.js, and util
 
 ## Requisitos
  - Ter um computador
- - Baixar o arquivo .zip ou fazer um git-clone do source-code do programa
+ - Baixar o arquivo .zip ou fazer um `git clone` do source-code do programa
  - Ter Node.Js instalado
  - Instalar as dependências necessárias para rodar o programa
  - Dependências externas:
    - prompt-sync()
 
 ### Obtendo o programa
+Clique no botão verde escrito <> Code
+.
+Se você quiser instalar o arquivo .zip, clique na opção Download ZIP. Após isso, descompacte o arquivo .zip baixado no lugar de sua escolha.
 
+Caso tenha optado por baixar via `git clone`, copie o link https do programa --> `https://github.com/Pedrohenr1qq/TextAdventureGame.git`.
 
+Abra um terminal ou prompt de comando.
+
+Vá para o diretório onde deseja baixar o programa e digite o seguinte comando:
+
+```
+git clone https://github.com/Pedrohenr1qq/TextAdventureGame.git 
+```
+
+Verifique se o programa foi baixado corretamente. Caso sim, você pode seguir com a explicação abaixo.
 
 ### Instalando Node.Js
 Você pode realizar a instalação do Node.Js, de acordo com seu Sistema Operacional (Windows, Linux ou MacOS), no site abaixo:
@@ -21,7 +34,7 @@ Você pode realizar a instalação do Node.Js, de acordo com seu Sistema Operaci
 Após instalar o Node.Js, abra um terminal no mesmo diretório de onde está o código e digite o comando abaixo:
 
 ```
-npm install prompt-synt
+npm install prompt-sync
 ```
 
 ## Sobre o jogo 
@@ -69,8 +82,17 @@ Ao finalizar um andar, o jogador recebe um aumento de nível, que faz com que to
 Recurso ainda a definir...
 
 ## Como jogar
-Para inicar o jogo,
+Para iniciar o jogo, abra o terminal ou o prompt de comando
+
+Entre na pasta onde você baixou o programa. 
+
+Entre na pasta `src` e digite o comando abaixo para iniciar o jogo:
+```
+node index.js
+```
+
+Após isso, aproveite o jogo
 
 O jogo é um jogo-texto, ou seja, há apenas texto envolvido. O jogador deverá tomar decisões ao longo do jogo e suas decisões impactarão na sua vitória. Portanto, cada decisão deve ser pensada com cuidado e com responsabiliade. Além disso, nem sempre as decisões do jogador serão aceitadas pela Dungeon. Por isso, caro aventureiro, busque sempre lutar quando possível. Assim, caso derrote o monstro, conseguirá bonus e aumentará suas chances de completar a Dungeon.
 
-Sendo assim, sem mais demora, vamos começar sua jornada
+Sendo assim, sem mais demora, vamos começar sua jornada.
