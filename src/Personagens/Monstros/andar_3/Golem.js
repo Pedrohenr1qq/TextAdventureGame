@@ -8,9 +8,9 @@ class Golem extends Monstro{
     ataqueEspecial(){
         let taxaReflexao = 0.7;
         console.log(" --------------------------------------------------------------------------------------------------")
-        console.log(`O monstro ${this.getNome()} vai usar o seu ataque especial: ${this.getNomeAtaqueEspecial()}`);
+        console.log(`O monstro "${this.getNome()}" vai usar o seu ataque especial: ${this.getNomeAtaqueEspecial()}`);
         console.log("Descrição ataque especial: ");
-        console.log(`O monstro ${this.getNome()} refletirá ${taxaReflexao*100}% de qualquer ataque lançado sobre ele por 3 rodadas`);
+        console.log(`O monstro "${this.getNome()}" refletirá ${taxaReflexao*100}% de qualquer ataque lançado sobre ele`);
 
         return taxaReflexao;
     }

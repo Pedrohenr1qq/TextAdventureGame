@@ -69,7 +69,7 @@ class FaseGeral{
     receberRecompensas(jogador, monstro){
         let taxaUpgrade = (monstro.index == 0) ? 0.1 : 0.25;
         console.log("\n-------------------------- RECEBENDO RECOMPENSAS ----------------------------")
-        console.log(`Parabéns caro ${jogador.getNome()}. Você ganhou contra o ${monstro.getNome()} no ${this.getNome()}!`);
+        console.log(`Parabéns caro ${jogador.getNome()}. Você ganhou contra o monstro "${monstro.getNome()}" no ${this.getNome()}!`);
 
         console.log("Você receberá um aumento de status");
         jogador.restaurarVida();
@@ -91,6 +91,7 @@ class FaseGeral{
             console.log("Game Over.");
             console.log("Infelizmente caro aventureiro, você não foi capaz de completar essa dungeon");
             console.log("Esperamos que, em uma proxima vida, você consiga realizar isso.");
+            process.exit();
         }else{
             console.log(`Parabéns jogador. Voce finalizou o ${this.getNome()}!`);
             jogador.aumentarNivel();

@@ -30,14 +30,6 @@ class Heroi extends Personsagem{
         return this.nivel;
     }
 
-    getFadiga(){
-        return this.fadiga;
-    }
-
-    setFadiga(novaFadiga){
-        this.fadiga = novaFadiga;
-    }
-
     getMoedas(){
         return this.moedas;
     }

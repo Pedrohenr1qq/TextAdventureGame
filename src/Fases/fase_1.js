@@ -25,7 +25,7 @@ class Fase_1 extends FaseGeral{
     async lutar(monstro, jogador){
         let danoJogador, danoMonstro, rodada = 1;
         console.log("\n -------------------------- LUTA COM O MONSTRO -------------------------------------\n");
-        console.log(`O jogador da classe ${jogador.getNome()} esta lutando com o monstro ${monstro.getNome()}`);
+        console.log(`O jogador da classe ${jogador.getNome()} esta lutando com o monstro "${monstro.getNome()}"`);
         
 
         while((jogador.getVida() > 0) && (monstro.getVida() > 0)){
@@ -37,7 +37,7 @@ class Fase_1 extends FaseGeral{
             monstro.sofrerDano(danoJogador);
 
             if(monstro.getVida() <= 0){
-                console.log("Monstro Derrotado");
+                console.log(`O monstro "${monstro.getNome()}" foi derrotado`);
                 break;
             }
     
@@ -50,6 +50,8 @@ class Fase_1 extends FaseGeral{
         console.log("Luta encerrada...\n");
 
         console.log(`Vida do ${jogador.getNome()}: ${this.utilities.arredondarValor(jogador.getVida())}`);
+
+        this.utilities.esperarValorUsuario();
 
         if(jogador.getVida() <= 0){
             console.log(`O jogador de classe ${jogador.getNome()} morreu ao lutar contra o ${monstro.getNome()} no ${this.getNome()}!`);

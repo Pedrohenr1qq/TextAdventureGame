@@ -5,13 +5,12 @@ const prompt = require('prompt-sync')();
 const Fase_1 = require('./Fases/fase_1');
 const Fase_2 = require('./Fases/fase_2');
 const Fase_3 = require('./Fases/Fase_3');
+const FaseBonus = require('./Fases/FaseBonus');
 
 const Arqueiro = require('./Personagens/Heroi/Arqueiro');
 const Guerreiro = require('./Personagens/Heroi/Guerreiro');
 const Ladino = require('./Personagens/Heroi/Ladino');
 const Mago = require('./Personagens/Heroi/Mago');
-
-const LojaItens = require('./LojaItens/LojaItens');
 
 const Utilities = require("./Utilities");
 
@@ -21,8 +20,7 @@ const utilities = new Utilities();
 const fase_1 = new Fase_1();
 const fase_2 = new Fase_2();
 const fase_3 = new Fase_3();
-
-const lojaItens = new LojaItens();
+const faseBonus = new FaseBonus();
 
 // ================================== INICIO DO GAME =============================
 async function main(){
@@ -36,6 +34,7 @@ async function main(){
 
     var gameOverStatus;
 
+
     // --------------- FASES -----------------
     // FASE 1
     console.log("");
@@ -47,18 +46,24 @@ async function main(){
     if(!gameOverStatus) console.log("================================================================================================================");
 
     // FASE 2
+
+    await fase_2.iniciarFase(jogador, gameOverStatus);
+    console.log("================================================================================================================");
+
+/*
+
     if(!gameOverStatus){
         console.log("");
         gameOverStatus = await fase_2.iniciarFase(jogador, gameOverStatus);
     
         console.log("================================================================================================================");
     }
-
+*/
     // FASE BONUS
     if(!gameOverStatus){
         console.log("");
         if(fase_2.entradaSecreta){
-            console.log(" Entrada secreta aqui");
+            faseBonus.iniciarFase(jogador);
             console.log("================================================================================================================");
         }    
     }
@@ -68,13 +73,22 @@ async function main(){
         await fase_3.iniciarFase(jogador, gameOverStatus);    
     }
 
+    // ---------------- Fim do Jogo -------------------
+    fimDeJogo();
+
+
+    // ================================== INICIO DO GAME =============================
+
 }
 
 main() // Chamando a função principal do jogo para executar o código
 
 // =================================== FIM DO JOGO ===============================
 
+
+
 // =================================== FUNÇOES ===================================
+//função para pegar o nome do jogador e fazer algumas validações. 
 function getNome(){
     let valorUsuario = "", nomePadronizado = "", tamanhoNome= 0;
     valorUsuario = utilities.validarValorUsuario("Digite seu nome (Sem acentuação): ", "string");
@@ -88,8 +102,7 @@ function getNome(){
     return nomePadronizado;
 }
 
-
-
+// Função para que o jogador escolha sua classe desejada.
 function escolhaDeClasse(nomeJogador){
     let valorUsuario, classeEscolhida;
 
@@ -137,6 +150,21 @@ function escolhaDeClasse(nomeJogador){
     console.log(`\nClasse escolhida com sucesso: ${classeEscolhida.getNome()}! Boa sorte ${nomeJogador}.`);
 
     return classeEscolhida;
+}
 
+
+// Função para finalizar o jogo + alguns créditos
+function fimDeJogo(){
+    console.log("\n============================== FIM DO JOGO =======================================\n");
+    console.log("Parabens caro aventureiro, por ter finalizado a Dungeon das Bestas...");
+    console.log("Seu nome ficará marcado por toda história como sendo o maior dentre todos.")
+    console.log("Que, em suas próximas aventuras, você se lembre dessa conquista e use como motivação em sua jornada");
+    console.log("\n==================================================================================\n");
+    // Créditos
+    console.log(" ------------------------------------ TEXT ADVENTURE GAME --------------------------------------------");
+    console.log("- Nome do jogo: Dungeon das Bestas");
+    console.log("- Densenvolvido por: Pedro H. P. Silva");
+    console.log("- Ano: 2024")
+    console.log("\nTodos os direitos reservados.");
 }
 

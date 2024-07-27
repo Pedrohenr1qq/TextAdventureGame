@@ -51,6 +51,7 @@ class Personsagem{
     }
 
     setDefesa(novaDefesa){
+        if(novaDefesa > 9.5) novaDefesa = 9.5;
         this.defesa = novaDefesa;
     }
 

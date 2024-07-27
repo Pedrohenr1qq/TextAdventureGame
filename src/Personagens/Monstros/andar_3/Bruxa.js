@@ -8,9 +8,9 @@ class Bruxa extends Monstro{
     ataqueEspecial(){
         let taxaReducao = 0.4;
         console.log(" --------------------------------------------------------------------------------------------------")
-        console.log(`O monstro ${this.getNome()} vai usar o seu ataque especial: ${this.getNomeAtaqueEspecial()}`);
+        console.log(`O monstro "${this.getNome()} "vai usar o seu ataque especial: ${this.getNomeAtaqueEspecial()}`);
         console.log("Descrição ataque especial: ");
-        console.log(`O monstro ${this.getNome()} irá enfraquecer a defesa e o poder de ataque de seu adversário em ${taxaReducao*100}%.`);
+        console.log(`O monstro "${this.getNome()}" irá enfraquecer a defesa e o poder de ataque de seu adversário para ${taxaReducao*100}% do valor original`);
 
         return taxaReducao;
     }

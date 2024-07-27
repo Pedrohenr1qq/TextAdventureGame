@@ -21,16 +21,17 @@ class Utilities{
     validarNumero(valor){
         let valorNumerico = !(isNaN(valor));   // Se não (não é um número), é um número
         let valorPositivo = (valor >= 0);
+        let valorNaoVazio = (valor != "");
 
-        let valorValido = ((valorNumerico) && (valorPositivo));
+        let valorValido = ((valorNumerico) && (valorPositivo) && valorNaoVazio);
         return valorValido;
     }
 
     // função para verficar se um valor é uma string valida (valor não numerico e com conteudo)
     // Retorna uma string válida
     validarString(valor){
-        let valorNaoNumerico = !(this.validarNumero(valor));            
-        let valorNaoVazio = (valor != "");
+        let valorNaoNumerico = !(this.validarNumero(valor)); 
+        let valorNaoVazio = (valor != "");           
         let valorValido = ((valorNaoNumerico) && (valorNaoVazio));
         return valorValido;
     }

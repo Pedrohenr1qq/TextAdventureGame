@@ -8,9 +8,9 @@ class Fantasma extends Monstro{
     ataqueEspecial(jogador){
         let danoInicialJogador = jogador.getPoderAtaque();
         console.log(" --------------------------------------------------------------------------------------------------")
-        console.log(`O monstro ${this.getNome()} vai usar o seu ataque especial: ${this.getNomeAtaqueEspecial()}`);
+        console.log(`O monstro "${this.getNome()}" vai usar o seu ataque especial: ${this.getNomeAtaqueEspecial()}`);
         console.log("Descrição ataque especial: ");
-        console.log(`O monstro ${this.getNome()} ficara imune a qualquer ataque por 2 rodadas`);
+        console.log(`O monstro "${this.getNome()}" ficara imune a qualquer ataque`);
         jogador.setPoderAtaque(0);
 
         return danoInicialJogador;

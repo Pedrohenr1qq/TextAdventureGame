@@ -24,37 +24,55 @@ class Fase_2 extends FaseGeral{
     }
 
     async lutar(monstro, jogador){
-        let danoJogador, danoMonstro, rodada = 1, danoInicialJogador, pretrificacao = false;
+        let rodadasPoderAtivo, rodadaInicio = 3;  // O poder espcoial do monstro é ativado na 3ª rodada
+        let danoJogador, danoMonstro, rodada = 1, danoInicialJogador, pretrificacao = false, ataqueEspecialAtivo = false;
+
+        rodadasPoderAtivo = parseInt(Math.random() * 5 + 1); // O monstro podera ter seu poder ativo por no minimo 1 rodada e no max 5. Valor aleatório. 
 
         console.log("\n -------------------------- LUTA COM O MONSTRO -------------------------------------\n");
-        console.log(`O jogador da classe ${jogador.getNome()} esta lutando com o monstro ${monstro.getNome()}`);
-        
+        console.log(`O jogador da classe ${jogador.getNome()} esta lutando com o monstro "${monstro.getNome()}"`);
+
         while((jogador.getVida() > 0) && (monstro.getVida() > 0)){
             console.log("Lutando... \n");
             console.log(`\n--------------------- RODADA - ${rodada} ------------------------\n`);
             await this.utilities.sleep(1);
 
-            if(rodada == 3){
+            if(rodada == rodadaInicio){ // Ataque especial dos monstros ativado
+                ataqueEspecialAtivo = true;
                 if(monstro.index == 0) danoInicialJogador = monstro.ataqueEspecial(jogador);
                 else pretrificacao = monstro.ataqueEspecial(jogador);
+                console.log(`Você deve aguentar por: ${rodadasPoderAtivo} rodadas`);
                 console.log("");
                 this.utilities.esperarValorUsuario();
             }
 
-            if(rodada == 5){ // Após duas rodadas, o jogador volta ao normal
-                console.log("\nParabéns Aventureiro, o efeito de ataque especial do monstro passou. Você aguentou bem...\n");
+            if(rodada == (rodadaInicio + rodadasPoderAtivo)){ // Após n = rodadasPoderAtivo rodadas, o jogador volta ao normal
+                console.log(`\nParabéns Aventureiro, o efeito de ataque especial do monstro "${monstro.getNome()}" passou. Você aguentou bem...\n`);
                 if(monstro.index == 0) jogador.setPoderAtaque(danoInicialJogador);
                 pretrificacao = false;
+                ataqueEspecialAtivo = false;
                 this.utilities.esperarValorUsuario();
             }
 
-            if(!pretrificacao){
+            if(!ataqueEspecialAtivo) {
                 danoJogador = jogador.atacar();
-                monstro.sofrerDano(danoJogador);
+                monstro.sofrerDano(danoJogador)
+            }
+
+            else{
+                console.log(`O ${jogador.getNome()} está sob efeito do ataque especial do monstro "${monstro.getNome()}"`);
+                console.log();
+                if(pretrificacao){
+                    console.log(`O ${jogador.getNome()} está petrificado e não poderá atacar...`);
+                }
+                else{
+                    danoJogador = jogador.atacar(); // Apenas para visualização
+                    console.log(`O ${jogador.getNome()} não consegue acertar seus ataques...`);
+                }
             }
 
             if(monstro.getVida() <= 0){
-                console.log("Monstro Derrotado");
+                console.log(`O monstro "${monstro.getNome()}" foi derrotado`);
                 break;
             }
     
@@ -68,8 +86,10 @@ class Fase_2 extends FaseGeral{
 
         console.log(`Vida do ${jogador.getNome()} : ${this.utilities.arredondarValor(jogador.getVida())}`);
 
+        this.utilities.esperarValorUsuario();
+
         if(jogador.getVida() <= 0){
-            console.log(`O aventureiro da classe ${jogador.getNome()} morreu ao lutar contra o ${monstro.getNome()} no ${this.getNome()}!`);
+            console.log(`O aventureiro da classe ${jogador.getNome()} morreu ao lutar contra o monstro "${monstro.getNome()}" no ${this.getNome()}!`);
             this.gameOver = true;
 
         }else{
