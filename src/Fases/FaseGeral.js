@@ -39,7 +39,7 @@ class FaseGeral{
             userInput = this.utilities.validarValorUsuario("Deseja lutar (y para sim e qualquer outro valor para não) ? ", "string");
         }
         else {                              // 1º Monstro
-            console.log("Você se deparou com o ultimo monstro da dungeon. Ele é o monstro mais forte do local. ");
+            console.log("Você se deparou com o ultimo monstro desse andar. Ele é o monstro mais forte do local. ");
             console.log("Se você for lutar contra ele, corre o risco de morrer. Tem certeza que deseja lutar contra ele? ");
             userInput = this.utilities.validarValorUsuario("Deseja lutar (y para sim e qualquer outro valor para não) ? ", "string");
             console.log("");

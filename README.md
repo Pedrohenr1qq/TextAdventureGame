@@ -1,5 +1,5 @@
 # TextAdventureGame
-A text-based game about an RPG story. Made in JavaScript, with Node.js, and utilizing the Object-Oriented Programming paradigm. abiut
+A text-based game about an RPG story. Made in JavaScript, with Node.js, and utilizing the Object-Oriented Programming paradigm.
 
 ## Requisitos
  - Ter um computador
@@ -78,7 +78,7 @@ Sempre que o jogador derrotar um monstro, ele recebe um pequeno upgrade em seus 
 
 Ao finalizar um andar, o jogador recebe um aumento de nível, que faz com que todos os seus atributos aumentem de acordo com o nível que se enconctra. Quanto mais alto o andar, maior é o aumento de nível.
 
-### Moedas 
+### Inventário e Loja de Itens 
 Recurso ainda a definir...
 
 ## Como jogar
