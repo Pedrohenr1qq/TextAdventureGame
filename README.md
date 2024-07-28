@@ -27,7 +27,7 @@ git clone https://github.com/Pedrohenr1qq/TextAdventureGame.git
 Verifique se o programa foi baixado corretamente. Caso sim, você pode seguir com a explicação abaixo.
 
 ### Instalando Node.Js
-Você pode realizar a instalação do Node.Js, de acordo com seu Sistema Operacional (Windows, Linux ou MacOS), no site abaixo:
+Você pode realizar a instalação do Node.Js, de acordo com seu Sistema Operacional (Windows, Linux ou MacOS) no site abaixo:
 [Instalar Node.Js (Alura)](https://www.alura.com.br/artigos/como-instalar-node-js-windows-linux-macos)
 
 ### Instalando as dependências
