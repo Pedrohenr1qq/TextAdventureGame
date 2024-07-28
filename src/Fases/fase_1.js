@@ -40,8 +40,16 @@ class Fase_1 extends FaseGeral{
             danoJogador = jogador.atacar();
             monstro.sofrerDano(danoJogador);
 
+            // Caso o jogador morra antes do monstro, termina a luta.
+            if(jogador.getVida() <= 0){
+                console.log("");
+                console.log(`O ${jogador.getNome()} foi derrotado`);
+                break;
+            }
+
             // Se o monstro morrer após ser atacado, ele não ataca o jogador e a luta termina.
             if(monstro.getVida() <= 0){
+                console.log("");
                 console.log(`O monstro "${monstro.getNome()}" foi derrotado`);
                 break;
             }
@@ -53,33 +61,34 @@ class Fase_1 extends FaseGeral{
             rodada++;
         }
 
-        // Fim da luta e anuncio do resultado
-        console.log("Luta encerrada...\n");
-
-        console.log(`Vida do ${jogador.getNome()}: ${this.utilities.arredondarValor(jogador.getVida())}`);
-
-        this.utilities.esperarValorUsuario();
-
-        if(jogador.getVida() <= 0){
-            console.log(`O jogador de classe ${jogador.getNome()} morreu ao lutar contra o ${monstro.getNome()} no ${this.getNome()}!`);
-            this.gameOver = true;
-
-        }else{
-            this.receberRecompensas(jogador, monstro);
-            this.gameOver = false;
-        }
-
     }
 
-    // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
-    async lutarComMonstro(monstro, jogador){
-        console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
-        let vaiLutar = this.encontroComMonstro(monstro, jogador);
-
-        if(vaiLutar){
-            await this.lutar(monstro, jogador);
-        }
-    }
+        // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
+        async lutarComMonstro(monstro, jogador){
+            console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
+            let vaiLutar = this.encontroComMonstro(monstro, jogador);
+            if(vaiLutar){
+                await this.lutar(monstro, jogador);
+            }
+        
+            console.log("");
+    
+            // Fim da luta e anuncio do resultado
+            console.log("Luta encerrada...\n");
+    
+            console.log(`Vida do ${jogador.getNome()}: ${this.utilities.arredondarValor(jogador.getVida())}`);
+        
+            this.utilities.esperarValorUsuario();
+            
+            if(jogador.getVida() <= 0){
+                console.log(`O aventureiro de classe ${jogador.getNome()} morreu ao lutar contra o ${monstro.getNome()} no ${this.getNome()}!`);
+                this.gameOver = true;
+            
+            }else{
+                this.receberRecompensas(jogador, monstro);
+                this.gameOver = false;
+            }
+        }    
 
     // Função que dá inicio à fase que é chamada na parte principal do cógigo (index js)
     async iniciarFase(jogador){

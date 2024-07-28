@@ -29,7 +29,7 @@ class Fase_2 extends FaseGeral{
         let rodadasPoderAtivo, rodadaInicio = 3;  // O poder especial do monstro é ativado na 3ª rodada
         let danoJogador, danoMonstro, rodada = 1, danoInicialJogador, pretrificacao = false, ataqueEspecialAtivo = false;
 
-        rodadasPoderAtivo = parseInt(Math.random() * 5 + 1); // O monstro podera ter seu poder ativo por no minimo 1 rodada e no max 5. Valor aleatório. 
+        rodadasPoderAtivo = parseInt(Math.random() * 3 + 1); // O monstro podera ter seu poder ativo por no minimo 1 rodada e no max 3. Valor aleatório. 
 
         console.log("\n -------------------------- LUTA COM O MONSTRO -------------------------------------\n");
         console.log(`O jogador da classe ${jogador.getNome()} esta lutando com o monstro "${monstro.getNome()}"`);
@@ -78,12 +78,14 @@ class Fase_2 extends FaseGeral{
 
             // Caso o jogador morra antes do monstro, devido ao ataque especial, termina a luta.
             if(jogador.getVida() <= 0){
+                console.log("");
                 console.log(`O ${jogador.getNome()} foi derrotado`);
                 break;
             }
             
             // Se o monstro morrer após ser atacado, ele não ataca o jogador e a luta termina.
             if(monstro.getVida() <= 0){
+                console.log("");
                 console.log(`O monstro "${monstro.getNome()}" foi derrotado`);
                 break;
             }
@@ -93,6 +95,17 @@ class Fase_2 extends FaseGeral{
             jogador.sofrerDano(danoMonstro);
 
             rodada++;
+        }
+
+
+    }
+
+    // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
+    async lutarComMonstro(monstro, jogador){
+        console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
+        let vaiLutar = this.encontroComMonstro(monstro, jogador);
+        if(vaiLutar){
+            await this.lutar(monstro, jogador);
         }
 
         // Fim da luta e anuncio do resultado
@@ -108,16 +121,6 @@ class Fase_2 extends FaseGeral{
         }else{
             this.receberRecompensas(jogador, monstro);
             this.gameOver = false;
-        }
-
-    }
-
-    // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
-    async lutarComMonstro(monstro, jogador){
-        console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
-        let vaiLutar = this.encontroComMonstro(monstro, jogador);
-        if(vaiLutar){
-            await this.lutar(monstro, jogador);
         }
     }
 
