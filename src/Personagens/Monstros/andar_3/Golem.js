@@ -2,7 +2,7 @@ const Monstro = require('../Monstro');
 
 class Golem extends Monstro{
     constructor(){
-        super("Golem", 350, 95, 0.4, 3, 120, 0, "Casca de Espinhos");
+        super("Golem", 310, 85, 0.4, 3, 120, 0, "Casca de Espinhos");
     }
 
     ataqueEspecial(){

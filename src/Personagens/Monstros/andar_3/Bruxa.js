@@ -2,7 +2,7 @@ const Monstro = require('../Monstro');
 
 class Bruxa extends Monstro{
     constructor(){
-        super("Bruxa", 475, 115, 0.35, 3, 150, 1, "Enfraquecimento");
+        super("Bruxa",425, 105, 0.35, 3, 150, 1, "Enfraquecimento");
     }
 
     ataqueEspecial(){
