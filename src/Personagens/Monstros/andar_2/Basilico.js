@@ -9,7 +9,7 @@ class Basilico extends Monstro{
         console.log(" --------------------------------------------------------------------------------------------------")
         console.log(`O monstro "${this.getNome()}" esta usando o ataque: ${this.getNomeAtaqueEspecial()}`);   
         console.log("Descrição ataque especial: ");
-        console.log(`O monstro "${this.getNome()}" congelará o ${jogador.getNome()}, tornando-o impotente para atacar ou defender-se. `);
+        console.log(`O monstro "${this.getNome()}" congelará o ${jogador.getNome()}, tornando-o impotente para atacar. `);
 
         return true;
     }

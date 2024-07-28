@@ -29,6 +29,8 @@ async function main(){
     console.log("Seja bem vindo caro aventureiro à Dungeon das Bestas. Vamos comecar? ");
     var nomeJogador = getNome();
     utilities.esperarValorUsuario();
+
+    // --------- Escolha de Classe ------------------
     var jogador = escolhaDeClasse(nomeJogador);
     utilities.esperarValorUsuario();
 

@@ -46,7 +46,7 @@ Se sim, embarque nessa jornada e grave seu nome na história.
 ### Dungeon
 A Dungeon das Bestas é uma dungeon dividida em andares, cada andar repleto de monstros diferentes e com suas características. Mas não pense que a Dungeon é apenas uma construção. Ela é capaz de sentir se aqueles que desbravam seu interior possuem a coragem necessária para tal. Por isso, caro aventureiro, antes de entrar nesse local repleto de morte e destruição, verifique se vocẽ possui a coragem e a capacidade para tal. 
 
-E lembre-se:  a Dungeon está sempre de olho em você. Ainda que você se esconda dos monstros da dungeon, ela saberá e fará de tudo para espulsar covardes de dentro dela. Então, caro aventureiro, seja destemido e enfrente os monstros dessa dungeon de frente, sem nada a temer. 
+E lembre-se:  a Dungeon está sempre de olho em você. Ainda que você se esconda dos monstros da dungeon, ela saberá e fará de tudo para expulsar covardes de dentro dela. Então, caro aventureiro, seja destemido e enfrente os monstros dessa dungeon de frente, sem nada a temer. 
 
 Para conquistar a Dungeon, você deve completar todos os andares e derrotar os monstros em cada andar. 
 

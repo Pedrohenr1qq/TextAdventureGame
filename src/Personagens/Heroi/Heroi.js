@@ -98,7 +98,7 @@ class Heroi extends Personsagem{
         console.log("Status atualizado. Novos valores: ");
         this.mostrarDados();
 
-        this.vidaInicial = this.getVida(); // A nova "vida inicial" do jogador passa a ser a vida do ultimo estágio
+        this.vidaInicial = this.getVida(); // A nova "vida inicial" do jogador passa a ser a vida do ultimo andar
     }
 
     //Função para o herói atacar. Retorna o dano causado pelo heroi

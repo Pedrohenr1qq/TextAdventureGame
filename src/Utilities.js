@@ -96,7 +96,7 @@ class Utilities{
         return nomePadronizado;
     }
 
-    // Função auxiliar assincrona para travar o código ppr um determinado tempo(seconds).
+    // Função auxiliar assincrona para travar o código por um determinado tempo(seconds).
     // Motivo do porque as funções do código precisam ser assincronas
     sleep(seconds){
         return new Promise(resolve => {

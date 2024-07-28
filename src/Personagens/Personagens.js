@@ -1,7 +1,7 @@
 /**
  * Classe Base para a criação das classes de Heroi e Monstros
  * Atributos dessa classe: 
- *      - Nome: Para o Herói, refere-se às classes Guerreiro, Mago, Arqueiro ou Ladino. Para os vilÕes, refere-se aos nomes dos vilões
+ *      - Nome: Para o Herói, refere-se às classes Guerreiro, Mago, Arqueiro ou Ladino. Para os monstros, refere-se aos nomes dos monstros
  *      - Vida: refere-se à vida do personagem, Herói ou Monstros
  *      - poderAtaque: refere-se ao dano que o personagem pode causar
  *      - Defesa: refere-se à porcentagem do dano que o personagem consegue reduzir
