@@ -33,29 +33,6 @@ class Monstro extends Personsagem{
         return this.nomeAtaqueEspecial;
     }
 
-    atacar(){
-        console.log(" ------------- ");
-        console.log(`O ${this.getNome()} está atacando...`);
-        console.log("");
-        return this.getPoderAtaque();
-    }
-
-    sofrerDano(danoRecebido){
-        let vidaReduzida, novaVida, defesa;
-
-        defesa = this.getDefesa();
-        vidaReduzida = danoRecebido - defesa;
-        novaVida = this.getVida() - vidaReduzida;
-        if(novaVida < 0) novaVida = 0;
-
-        console.log(`O monstro "${this.getNome()}" sofreu dano.`);
-        console.log(`Vida do monstro "${this.getNome()}": ${this.utilities.arredondarValor(this.getVida())} >>> ${this.utilities.arredondarValor(novaVida)}`);
-
-        this.setVida(novaVida);
-        console.log(`A vida atual do monstro "${this.getNome()}" é: ${this.utilities.arredondarValor(this.getVida())}`);
-        console.log(" --------------- ");
-    }
-
     //Metodo abstrado para os monstros
     ataqueEspecial(){}
 

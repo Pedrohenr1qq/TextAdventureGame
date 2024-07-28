@@ -56,6 +56,35 @@ class Personsagem{
         this.defesa = novaDefesa;
     }
 
+    //Função para o personagem atacar
+    atacar(){
+        let danoAtaque;
+        console.log(" ----------------------------------------");
+        console.log(`O ${this.getNome()} está atacando...`);
+        danoAtaque = this.getPoderAtaque();
+        console.log("Dano causado: " + this.utilities.arredondarValor(danoAtaque));
+        console.log("");
+
+        return danoAtaque;
+    }
+
+    //Função para o personagem receber o dano que o atingiu. O valor do dano recebido é reduzido de acordo com a defesa do personagem
+    sofrerDano(danoRecebido){
+        let vidaReduzida, novaVida;
+        vidaReduzida = danoRecebido * (1 - this.getDefesa());
+        novaVida = this.getVida() - vidaReduzida;
+        if(novaVida < 0) novaVida = 0;
+
+        console.log(`O ${this.getNome()} sofreu dano.`);
+        console.log(`Dano sofrido: ${this.utilities.arredondarValor(vidaReduzida)}`);
+        console.log(`Vida do ${this.getNome()}: ${this.utilities.arredondarValor(this.getVida())} >>> ${this.utilities.arredondarValor(novaVida)}`);
+
+        this.setVida(novaVida);
+
+        console.log(`A vida atual do ${this.getNome()} é: ${this.utilities.arredondarValor(this.getVida())}.`);
+        console.log(" ---------------------------------------- ");
+    }
+
 };
 
 module.exports = Personsagem;
