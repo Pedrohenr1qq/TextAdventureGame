@@ -19,7 +19,7 @@ class Fase_2 extends FaseGeral{
     // Uma breve apresentação do andar/fase
     apresentarFase(){
         console.log(` =================== ${this.getNome()} ===============================`);
-        console.log(`Seja bem vindo caro jogador ao primeiro andar desta dungeon!`);
+        console.log(`Seja bem vindo caro jogador ao segundo andar desta dungeon!`);
         console.log("Este andar é repleto de seres mágicos e imprevisíveis.");
         console.log("Você tem a destreza e, principalmente, a sorte para iniciar nesta jornada? ");
     }

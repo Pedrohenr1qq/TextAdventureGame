@@ -18,7 +18,7 @@ class Fase_3 extends FaseGeral{
     // Uma breve apresentação do andar/fase
     apresentarFase(){
         console.log(` =================== ${this.getNome()} ===============================`);
-        console.log(`Seja bem vindo caro jogador ao primeiro andar desta dungeon!`);
+        console.log(`Seja bem vindo caro jogador ao terceiro andar desta dungeon!`);
         console.log("O Andar das Bestas Algozes é um labirinto sombrio, onde criaturas ferozes espreitam a cada esquina.");
         console.log("A sobrevivência depende de derrotar seu líder maligno, escondido nas profundezas.");
     }

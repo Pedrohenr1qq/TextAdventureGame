@@ -73,7 +73,7 @@ class FaseGeral{
 
     // Caso o jogador derrote algum monstro, ele recebe recompenas e um pequeno aumento de status e moedas referente ao valor do monstro.
     receberRecompensas(jogador, monstro){
-        let taxaUpgrade = (monstro.index == 0) ? 0.15 : 0.20; // O segundo monstro da um upgrade maior que o primeiro
+        let taxaUpgrade = (monstro.index == 0) ? 0.15 : 0.25; // O segundo monstro da um upgrade maior que o primeiro
         console.log("\n-------------------------- RECEBENDO RECOMPENSAS ----------------------------")
         console.log(`Parabéns caro ${jogador.getNome()}. Você ganhou contra o monstro "${monstro.getNome()}" no ${this.getNome()}!`);
 
