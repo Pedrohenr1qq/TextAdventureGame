@@ -2,7 +2,7 @@ const Monstro = require('../Monstro');
 
 class Goblin extends Monstro{
     constructor(){
-        super("Goblin", 60, 30, 0.05, 1, 10, 0, "");
+        super("Goblin", 80, 30, 0.05, 1, 10, 0, "");
     }
 };
 

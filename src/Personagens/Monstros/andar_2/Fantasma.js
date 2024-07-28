@@ -2,7 +2,7 @@ const Monstro = require('../Monstro');
 
 class Fantasma extends Monstro{
     constructor(){
-        super("Fantasma", 150, 40, 0.1, 2, 55, 0, "Intangibilidade");
+        super("Fantasma", 200, 55, 0.1, 2, 55, 0, "Intangibilidade");
     }
 
     ataqueEspecial(jogador){
