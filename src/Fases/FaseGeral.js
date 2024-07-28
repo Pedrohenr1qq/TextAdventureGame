@@ -48,7 +48,7 @@ class FaseGeral{
             if(userInput.toUpperCase() != 'Y' ){
                 console.log("Essa não. O monstro sentiu o seu cheiro e agora está indo atrás de você. Você terá que lutar agora. Ponha suas armas a postos");
                 this.utilities.esperarValorUsuario();
-                userInput.toUpperCase() = 'Y';
+                userInput = 'Y';
             }
         }
 
