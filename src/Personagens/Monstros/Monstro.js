@@ -42,7 +42,7 @@ class Monstro extends Personsagem{
         console.log(`Vida: ${this.utilities.arredondarValor(this.getVida())}`);
         console.log(`Defesa: ${this.utilities.arredondarValor(this.getDefesa())}`);
         console.log(`Poder de Ataque: ${this.utilities.arredondarValor(this.getPoderAtaque())}`);
-        console.log(`Valor: ${this.getValor()}`);
+        console.log(`Valor: ${this.getValor()} mooedas`);
         console.log(" ----------------------------------- ");
     }
 

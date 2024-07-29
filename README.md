@@ -71,6 +71,13 @@ Cada uma com seus valores de atributos definidos.
 ### Monstros
 Cada andar possui 2 monstros, o segundo mais forte que o primeiro. O jogador tem a opção de pular a luta contra o primeiro monstro. Mas cuidado, a Dungeon odeia fracos que pulam lutas. Portanto, ela fará de tudo para tentar elimina-lo. 
 
+Os monstros possuem os atributos: 
+ - Nome do Monstro
+ - Vida
+ - Defesa
+ - Poder de Ataque
+ - Valor
+
 A partir do segundo andar, os monstros possuem habilidades especiais que causam efeitos no jogador. A duração dessa habilidade pode variar de monstro pra monstro, e o jogador deve aguentar durante esse tempo ou derrotar o monstro antes que seja derrotado.
 
 ### Recompensas e Aumento de Nível
