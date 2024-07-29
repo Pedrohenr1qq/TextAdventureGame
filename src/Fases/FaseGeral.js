@@ -56,7 +56,7 @@ class FaseGeral{
             if(userInput.toUpperCase() == 'Y'){
                 vaiLutar = true;
             }else{
-                console.log("\nVocê se escondeu e o monstro continou seguindo seu caminho. Agora o caminho está livre para continuar.\n");
+                console.log("\nVocê se escondeu e o monstro continuou seguindo seu caminho. Agora o caminho está livre para continuar.\n");
                 vaiLutar = false;
                 this.desistiu += 1;
             }
@@ -83,11 +83,14 @@ class FaseGeral{
         jogador.alterarAtributo("Vida", (jogador.getVida() * (1 + taxaUpgrade)));
         jogador.alterarAtributo("Defesa", (jogador.getDefesa() * (1 + taxaUpgrade/10)));
         jogador.alterarAtributo("Poder de Ataque", (jogador.getPoderAtaque() * (1 + taxaUpgrade)));
-        console.log("");
-        jogador.mostrarDados();
 
         console.log(`Você receberá ${monstro.getValor()} moedas por ter derrotado o monstro. \n`);
         jogador.receberMoedas(monstro.getValor());
+
+        console.log("");
+        console.log("Seus novos atributos são: ");
+        jogador.mostrarDados();
+
     }
 
     // Função para finalizar a fase. Leva em conta se o jogador ganhou ou perdeu em sua luta contra os monstros da dungeon
@@ -96,7 +99,7 @@ class FaseGeral{
 
         if(this.getGameOver()){
             console.log("Game Over.");
-            console.log("Infelizmente caro aventureiro, você não foi capaz de completar essa dungeon");
+            console.log("Infelizmente, caro aventureiro, você não foi capaz de completar essa dungeon");
             console.log("Esperamos que, em uma proxima vida, você consiga realizar isso.");
             process.exit();
         }else{

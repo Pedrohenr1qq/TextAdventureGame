@@ -113,6 +113,21 @@ class Fase_3 extends FaseGeral{
 
             rodada++;
         }
+
+        // Fim da luta e anuncio do resultado
+        console.log("Luta encerrada...\n");
+
+        console.log(`Vida do ${jogador.getNome()} : ${this.utilities.arredondarValor(jogador.getVida())}`);
+        this.utilities.esperarValorUsuario();
+        
+        if(jogador.getVida() <= 0){
+            console.log(`O aventureiro da classe ${jogador.getNome()} morreu ao lutar contra o monstro "${monstro.getNome()}" no ${this.getNome()}!`);
+            this.gameOver = true;
+        
+        }else{
+            this.receberRecompensas(jogador, monstro);  
+            this.gameOver = false;
+        }
     }
 
     // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
@@ -121,21 +136,6 @@ class Fase_3 extends FaseGeral{
         let vaiLutar = this.encontroComMonstro(monstro, jogador);
         if(vaiLutar){
             await this.lutar(monstro, jogador);
-        }
-                
-        // Fim da luta e anuncio do resultado
-        console.log("Luta encerrada...\n");
-
-        console.log(`Vida do ${jogador.getNome()} : ${this.utilities.arredondarValor(jogador.getVida())}`);
-        this.utilities.esperarValorUsuario();
-
-        if(jogador.getVida() <= 0){
-            console.log(`O aventureiro da classe ${jogador.getNome()} morreu ao lutar contra o monstro "${monstro.getNome()}" no ${this.getNome()}!`);
-            this.gameOver = true;
-
-        }else{
-            this.receberRecompensas(jogador, monstro);  
-            this.gameOver = false;
         }
     }
 

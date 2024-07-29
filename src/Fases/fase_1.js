@@ -60,18 +60,6 @@ class Fase_1 extends FaseGeral{
 
             rodada++;
         }
-
-    }
-
-        // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
-        async lutarComMonstro(monstro, jogador){
-            console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
-            let vaiLutar = this.encontroComMonstro(monstro, jogador);
-            if(vaiLutar){
-                await this.lutar(monstro, jogador);
-            }
-        
-            console.log("");
     
             // Fim da luta e anuncio do resultado
             console.log("Luta encerrada...\n");
@@ -88,9 +76,21 @@ class Fase_1 extends FaseGeral{
                 this.receberRecompensas(jogador, monstro);
                 this.gameOver = false;
             }
+    }
+
+        // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
+        async lutarComMonstro(monstro, jogador){
+            console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
+            let vaiLutar = this.encontroComMonstro(monstro, jogador);
+            if(vaiLutar){
+                await this.lutar(monstro, jogador);
+            }
+        
+            console.log("");
+
         }    
 
-    // Função que dá inicio à fase que é chamada na parte principal do cógigo (index js)
+    // Função que dá inicio à fase que é chamada na parte principal do cógigo (index.js)
     async iniciarFase(jogador){
         this.apresentarFase();
         this.utilities.esperarValorUsuario();

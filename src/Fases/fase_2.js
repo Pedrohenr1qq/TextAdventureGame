@@ -96,18 +96,6 @@ class Fase_2 extends FaseGeral{
 
             rodada++;
         }
-
-
-    }
-
-    // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
-    async lutarComMonstro(monstro, jogador){
-        console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
-        let vaiLutar = this.encontroComMonstro(monstro, jogador);
-        if(vaiLutar){
-            await this.lutar(monstro, jogador);
-        }
-
         // Fim da luta e anuncio do resultado
         console.log("Luta encerrada...\n");
 
@@ -122,6 +110,18 @@ class Fase_2 extends FaseGeral{
             this.receberRecompensas(jogador, monstro);
             this.gameOver = false;
         }
+
+    }
+
+    // Função para verificar se o jogador vai lutar com o monstro. Caso sim, inicia a luta.
+    async lutarComMonstro(monstro, jogador){
+        console.log(`Você estava andando pelo caminho e acabou se deparando com uma movimentação estranha. Logo você percebe que se encontrou com um monstro. `);
+        let vaiLutar = this.encontroComMonstro(monstro, jogador);
+        if(vaiLutar){
+            await this.lutar(monstro, jogador);
+        }
+
+
     }
 
     // Função para dar acesso à fase bonus, que concede tesouros extras ao jogador.
